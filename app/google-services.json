@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "570209376552",
+    "project_id": "hwanghon-677f6",
+    "storage_bucket": "hwanghon-677f6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:570209376552:android:b47bff42d2777b235c981d",
+        "android_client_info": {
+          "package_name": "com.example.hwanghon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "570209376552-ud78a3muasiv9eckqmfddosmbth6eurm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOJCKil31X-aI9JdTas51XyPl_AU-pZL0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "570209376552-ud78a3muasiv9eckqmfddosmbth6eurm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

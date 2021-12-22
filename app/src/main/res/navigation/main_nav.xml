@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/chattingFragment">
+
+    <fragment
+        android:id="@+id/chattingFragment"
+        android:name="com.example.hwanghon.fragments.ChattingFragment"
+        android:label="fragment_chatting"
+        tools:layout="@layout/fragment_chatting" >
+        <action
+            android:id="@+id/action_chattingFragment_to_friendFragment"
+            app:destination="@id/friendFragment" />
+        <action
+            android:id="@+id/action_chattingFragment_to_lectureFragment"
+            app:destination="@id/lectureFragment" />
+        <action
+            android:id="@+id/action_chattingFragment_to_freeboardFragment"
+            app:destination="@id/freeboardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/freeboardFragment"
+        android:name="com.example.hwanghon.fragments.FreeboardFragment"
+        android:label="fragment_freeboard"
+        tools:layout="@layout/fragment_freeboard" >
+        <action
+            android:id="@+id/action_freeboardFragment_to_lectureFragment"
+            app:destination="@id/lectureFragment" />
+        <action
+            android:id="@+id/action_freeboardFragment_to_friendFragment"
+            app:destination="@id/friendFragment" />
+        <action
+            android:id="@+id/action_freeboardFragment_to_chattingFragment"
+            app:destination="@id/chattingFragment" />
+        <action
+            android:id="@+id/action_freeboardFragment_to_meetboardFragment"
+            app:destination="@id/meetboardFragment" />
+        <action
+            android:id="@+id/action_freeboardFragment_to_myboardFragment"
+            app:destination="@id/myboardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/friendFragment"
+        android:name="com.example.hwanghon.fragments.FriendFragment"
+        android:label="fragment_friend"
+        tools:layout="@layout/fragment_friend" >
+        <action
+            android:id="@+id/action_friendFragment_to_chattingFragment"
+            app:destination="@id/chattingFragment" />
+        <action
+            android:id="@+id/action_friendFragment_to_lectureFragment"
+            app:destination="@id/lectureFragment" />
+        <action
+            android:id="@+id/action_friendFragment_to_freeboardFragment"
+            app:destination="@id/freeboardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/lectureFragment"
+        android:name="com.example.hwanghon.fragments.LectureFragment"
+        android:label="fragment_lecture"
+        tools:layout="@layout/fragment_lecture" >
+        <action
+            android:id="@+id/action_lectureFragment_to_freeboardFragment"
+            app:destination="@id/freeboardFragment" />
+        <action
+            android:id="@+id/action_lectureFragment_to_friendFragment"
+            app:destination="@id/friendFragment" />
+        <action
+            android:id="@+id/action_lectureFragment_to_chattingFragment"
+            app:destination="@id/chattingFragment" />
+        <action
+            android:id="@+id/action_lectureFragment_to_mylectureFragment"
+            app:destination="@id/mylectureFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/meetboardFragment"
+        android:name="com.example.hwanghon.fragments.MeetboardFragment"
+        android:label="fragment_meetboard"
+        tools:layout="@layout/fragment_meetboard" >
+        <action
+            android:id="@+id/action_meetboardFragment_to_freeboardFragment"
+            app:destination="@id/freeboardFragment" />
+        <action
+            android:id="@+id/action_meetboardFragment_to_myboardFragment"
+            app:destination="@id/myboardFragment" />
+        <action
+            android:id="@+id/action_meetboardFragment_to_friendFragment"
+            app:destination="@id/friendFragment" />
+        <action
+            android:id="@+id/action_meetboardFragment_to_lectureFragment"
+            app:destination="@id/lectureFragment" />
+        <action
+            android:id="@+id/action_meetboardFragment_to_chattingFragment"
+            app:destination="@id/chattingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myboardFragment"
+        android:name="com.example.hwanghon.fragments.MyboardFragment"
+        android:label="fragment_myboard"
+        tools:layout="@layout/fragment_myboard" >
+        <action
+            android:id="@+id/action_myboardFragment_to_meetboardFragment"
+            app:destination="@id/meetboardFragment" />
+        <action
+            android:id="@+id/action_myboardFragment_to_freeboardFragment"
+            app:destination="@id/freeboardFragment" />
+        <action
+            android:id="@+id/action_myboardFragment_to_lectureFragment"
+            app:destination="@id/lectureFragment" />
+        <action
+            android:id="@+id/action_myboardFragment_to_chattingFragment"
+            app:destination="@id/chattingFragment" />
+        <action
+            android:id="@+id/action_myboardFragment_to_friendFragment"
+            app:destination="@id/friendFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mylectureFragment"
+        android:name="com.example.hwanghon.fragments.MylectureFragment"
+        android:label="fragment_mylecture"
+        tools:layout="@layout/fragment_mylecture" >
+        <action
+            android:id="@+id/action_mylectureFragment_to_lectureFragment"
+            app:destination="@id/lectureFragment" />
+        <action
+            android:id="@+id/action_mylectureFragment_to_freeboardFragment"
+            app:destination="@id/freeboardFragment" />
+        <action
+            android:id="@+id/action_mylectureFragment_to_friendFragment"
+            app:destination="@id/friendFragment" />
+        <action
+            android:id="@+id/action_mylectureFragment_to_chattingFragment"
+            app:destination="@id/chattingFragment" />
+    </fragment>
+</navigation>

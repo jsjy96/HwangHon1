@@ -1,0 +1,170 @@
+package com.example.hwanghon.board
+
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.Toast
+import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.hwanghon.R
+import com.example.hwanghon.databinding.ActivityBoardWriteBinding
+import com.example.hwanghon.utils.FBAuth
+import com.example.hwanghon.utils.FBRef
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
+import java.io.ByteArrayOutputStream
+
+class BoardWriteActivity : AppCompatActivity() {
+
+    var list = ArrayList<Uri>()
+    val adapter = MultiImageAdapter(list, this)
+
+    private lateinit var binding : ActivityBoardWriteBinding
+
+    private val TAG = BoardWriteActivity::class.java.simpleName
+
+    private var imageUri = toString()
+
+    private var imageNumber = toString()
+
+    private var isImageUpload = false
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+
+        super.onCreate(savedInstanceState)
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_board_write)
+
+        binding.writeBtn1.setOnClickListener {
+
+            val title = binding.titleArea.text.toString()
+            val content = binding.contentArea.text.toString()
+            val uid = FBAuth.getUid()
+            val time = FBAuth.getTime()
+
+            Log.d(TAG, title)
+            Log.d(TAG, content)
+
+            val key = FBRef.boardRef.push().key.toString()
+
+            FBRef.boardRef
+                .child(key)
+                .setValue(BoardModel(title, content, uid, time))
+
+            Toast.makeText(this, "게시글 입력 완료", Toast.LENGTH_LONG).show()
+
+            if(isImageUpload == true) {
+                imageUpload(key)
+            }
+
+            finish()
+
+
+        }
+
+        var getImage_btn = findViewById<Button>(R.id.getImage)
+        var recyclerview = findViewById<RecyclerView>(R.id.recyclerView)
+
+        getImage_btn.setOnClickListener {
+            var intent = Intent(Intent.ACTION_PICK)
+            intent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+            intent.action = Intent.ACTION_GET_CONTENT
+
+            startActivityForResult(intent, 100)
+            isImageUpload = true
+        }
+
+        val layoutManager = GridLayoutManager(this, 2)
+        recyclerview.layoutManager = layoutManager
+        recyclerview.adapter = adapter
+
+//        binding.imageArea.setOnClickListener {
+//            val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+//            startActivityForResult(gallery, 100)
+//            isImageUpload = true
+//        }
+
+
+    }
+//
+    private fun imageUpload(key : String){
+
+        val storage = Firebase.storage
+        val storageRef = storage.reference
+
+        val mountainsRef = storageRef.child(key + ".png")
+
+        val imageView = findViewById<ImageView>(R.id.image) //i번째, 위에 저거도 카운트로 바꾸면될듯
+            imageView.isDrawingCacheEnabled = true
+            imageView.buildDrawingCache()
+        val bitmap = (imageView.drawable as BitmapDrawable).bitmap
+        val baos = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
+        val data = baos.toByteArray()
+
+        var uploadTask = mountainsRef.putBytes(data)
+            uploadTask.addOnFailureListener {
+                // Handle unsuccessful uploads
+            }.addOnSuccessListener { taskSnapshot ->
+                // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
+                // ...
+            //
+
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode == RESULT_OK && requestCode == 100) {
+//            binding.imageArea.setImageURI(data?.data)
+            list.clear()
+
+            if (data?.clipData != null) {
+                val count = data.clipData!!.itemCount
+                if (count > 10) {
+                    Toast.makeText(applicationContext, "사진은 10장까지 선택 가능합니다.", Toast.LENGTH_LONG)
+                    return
+                }
+
+                when (count){
+                    0 -> imageNumber = "1"
+
+                    1 -> imageNumber = "2"
+                    2 -> imageNumber = "3"
+                    3 -> imageNumber = "4"
+                    4 -> imageNumber = "5"
+                    5 -> imageNumber = "6"
+                    6 -> imageNumber = "7"
+                    7 -> imageNumber = "8"
+
+
+
+                }
+                for (i in 0 until count) {
+                    val imageUri = data.clipData!!.getItemAt(i).uri
+                    list.add(imageUri)
+                }
+
+            } else {
+                data?.data?.let { uri ->
+                    val imageUri : Uri? = data?.data
+                    if (imageUri != null) {
+                        list.add(imageUri)
+                    }
+                }
+            }
+        }
+
+        adapter.notifyDataSetChanged()
+    }
+}
