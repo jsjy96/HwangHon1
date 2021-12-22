@@ -11,6 +11,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,7 +29,7 @@ class BoardWriteActivity : AppCompatActivity() {
     var list = ArrayList<Uri>()
     val adapter = MultiImageAdapter(list, this)
 
-    private lateinit var binding : ActivityBoardWriteBinding
+    private lateinit var binding: ActivityBoardWriteBinding
 
     private val TAG = BoardWriteActivity::class.java.simpleName
 
@@ -62,8 +63,9 @@ class BoardWriteActivity : AppCompatActivity() {
 
             Toast.makeText(this, "게시글 입력 완료", Toast.LENGTH_LONG).show()
 
-            if(isImageUpload == true) {
+            if (isImageUpload == true) {
                 imageUpload(key)
+//                multiImageUpload()
             }
 
             finish()
@@ -96,75 +98,89 @@ class BoardWriteActivity : AppCompatActivity() {
 
 
     }
-//
-    private fun imageUpload(key : String){
+
+    //
+    private fun imageUpload(key: String) {
 
         val storage = Firebase.storage
         val storageRef = storage.reference
 
-        val mountainsRef = storageRef.child(key + ".png")
 
-        val imageView = findViewById<ImageView>(R.id.image) //i번째, 위에 저거도 카운트로 바꾸면될듯
+        var recyclerview = findViewById<RecyclerView>(R.id.recyclerView)
+        for (idx in 0..recyclerview.layoutManager!!.itemCount - 1) {
+            var view = recyclerview.layoutManager!!.findViewByPosition(idx)
+            Log.d("테스트2", view.toString())
+            var imageView = view!!.findViewById<ImageView>(R.id.image)
+            Log.d("테스트1", imageView.toString())
             imageView.isDrawingCacheEnabled = true
             imageView.buildDrawingCache()
-        val bitmap = (imageView.drawable as BitmapDrawable).bitmap
-        val baos = ByteArrayOutputStream()
+            val bitmap = (imageView.drawable as BitmapDrawable).bitmap
+            val baos = ByteArrayOutputStream()
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
-        val data = baos.toByteArray()
+            val data = baos.toByteArray()
 
-        var uploadTask = mountainsRef.putBytes(data)
+            val mountainsRef = storageRef.child(key + idx.toString() + ".png")
+            var uploadTask = mountainsRef.putBytes(data)
             uploadTask.addOnFailureListener {
                 // Handle unsuccessful uploads
             }.addOnSuccessListener { taskSnapshot ->
                 // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
                 // ...
-            //
-
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if(resultCode == RESULT_OK && requestCode == 100) {
-//            binding.imageArea.setImageURI(data?.data)
-            list.clear()
-
-            if (data?.clipData != null) {
-                val count = data.clipData!!.itemCount
-                if (count > 10) {
-                    Toast.makeText(applicationContext, "사진은 10장까지 선택 가능합니다.", Toast.LENGTH_LONG)
-                    return
-                }
-
-                when (count){
-                    0 -> imageNumber = "1"
-
-                    1 -> imageNumber = "2"
-                    2 -> imageNumber = "3"
-                    3 -> imageNumber = "4"
-                    4 -> imageNumber = "5"
-                    5 -> imageNumber = "6"
-                    6 -> imageNumber = "7"
-                    7 -> imageNumber = "8"
-
-
-
-                }
-                for (i in 0 until count) {
-                    val imageUri = data.clipData!!.getItemAt(i).uri
-                    list.add(imageUri)
-                }
-
-            } else {
-                data?.data?.let { uri ->
-                    val imageUri : Uri? = data?.data
-                    if (imageUri != null) {
-                        list.add(imageUri)
-                    }
-                }
+                Log.d("성공", "성공")
             }
         }
 
-        adapter.notifyDataSetChanged()
     }
-}
+
+//    private fun multiImageUpload() {
+//        var recyclerview = findViewById<RecyclerView>(R.id.recyclerView)
+//        for (i in 0..recyclerview.layoutManager!!.itemCount) {
+//            val view = recyclerview.layoutManager!!.findViewByPosition(i)
+//            Log.d("뷰: ", view?.findViewById<ImageView>(R.id.image).toString())
+//        }
+//    }
+
+        override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+            super.onActivityResult(requestCode, resultCode, data)
+            if (resultCode == RESULT_OK && requestCode == 100) {
+//            binding.imageArea.setImageURI(data?.data)
+                list.clear()
+
+                if (data?.clipData != null) {
+                    val count = data.clipData!!.itemCount
+                    if (count > 10) {
+                        Toast.makeText(applicationContext, "사진은 10장까지 선택 가능합니다.", Toast.LENGTH_LONG)
+                        return
+                    }
+
+                    when (count) {
+                        0 -> imageNumber = "1"
+
+                        1 -> imageNumber = "2"
+                        2 -> imageNumber = "3"
+                        3 -> imageNumber = "4"
+                        4 -> imageNumber = "5"
+                        5 -> imageNumber = "6"
+                        6 -> imageNumber = "7"
+                        7 -> imageNumber = "8"
+
+
+                    }
+                    for (i in 0 until count) {
+                        val imageUri = data.clipData!!.getItemAt(i).uri
+                        list.add(imageUri)
+                    }
+
+                } else {
+                    data?.data?.let { uri ->
+                        val imageUri: Uri? = data?.data
+                        if (imageUri != null) {
+                            list.add(imageUri)
+                        }
+                    }
+                }
+            }
+
+            adapter.notifyDataSetChanged()
+        }
+    }
