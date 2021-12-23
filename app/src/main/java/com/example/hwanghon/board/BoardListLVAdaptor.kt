@@ -1,4 +1,4 @@
-//package com.example.hwanghon.board
+package com.example.hwanghon.board
 
 import android.content.Context
 import android.content.Intent
@@ -21,8 +21,6 @@ import kotlin.properties.Delegates
 
 class BoardListLVAdaptor(private val boardList : MutableList<BoardModel>) : BaseAdapter() {
 
-    private lateinit var key: String
-    private var idx by Delegates.notNull<Int>()
 
     override fun getCount(): Int {
         return boardList.size
@@ -39,6 +37,7 @@ class BoardListLVAdaptor(private val boardList : MutableList<BoardModel>) : Base
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         var view = convertView
         val storageRef = Firebase.storage.reference
+
 
         if (view == null) {
             view = LayoutInflater.from(parent?.context)
@@ -63,6 +62,10 @@ class BoardListLVAdaptor(private val boardList : MutableList<BoardModel>) : Base
 
         val image1 = view?.findViewById<ImageView>(R.id.image1Area)
         storageRef.child(boardList[position].key+"0"+ ".png").downloadUrl.addOnSuccessListener {
+           Glide.with(this)
+               .load(storageRef)
+               .into(image1)
+
         }.addOnFailureListener {
             // Handle any errors
         }
