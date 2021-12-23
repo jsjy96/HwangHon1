@@ -78,13 +78,12 @@
 
             </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/boardRV"
-                android:scrollbars="vertical"
+            <ListView
+                android:id="@+id/boardListView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="60dp"
-                android:layout_marginBottom="63dp"/>
+                android:layout_marginBottom="63dp"
+                android:layout_marginTop="60dp"/>
 
             <ImageView
                 android:id="@+id/writeBtn"

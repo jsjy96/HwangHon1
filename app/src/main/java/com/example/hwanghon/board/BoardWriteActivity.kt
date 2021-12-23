@@ -11,7 +11,6 @@ import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,7 +28,7 @@ class BoardWriteActivity : AppCompatActivity() {
     var list = ArrayList<Uri>()
     val adapter = MultiImageAdapter(list, this)
 
-    private lateinit var binding: ActivityBoardWriteBinding
+    private lateinit var binding : ActivityBoardWriteBinding
 
     private val TAG = BoardWriteActivity::class.java.simpleName
 
@@ -63,9 +62,8 @@ class BoardWriteActivity : AppCompatActivity() {
 
             Toast.makeText(this, "게시글 입력 완료", Toast.LENGTH_LONG).show()
 
-            if (isImageUpload == true) {
+            if(isImageUpload == true) {
                 imageUpload(key)
-//                multiImageUpload()
             }
 
             finish()
@@ -98,8 +96,7 @@ class BoardWriteActivity : AppCompatActivity() {
 
 
     }
-
-    //
+//
     private fun imageUpload(key: String) {
 
         val storage = Firebase.storage
@@ -132,55 +129,34 @@ class BoardWriteActivity : AppCompatActivity() {
 
     }
 
-//    private fun multiImageUpload() {
-//        var recyclerview = findViewById<RecyclerView>(R.id.recyclerView)
-//        for (i in 0..recyclerview.layoutManager!!.itemCount) {
-//            val view = recyclerview.layoutManager!!.findViewByPosition(i)
-//            Log.d("뷰: ", view?.findViewById<ImageView>(R.id.image).toString())
-//        }
-//    }
-
-        override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-            super.onActivityResult(requestCode, resultCode, data)
-            if (resultCode == RESULT_OK && requestCode == 100) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode == RESULT_OK && requestCode == 100) {
 //            binding.imageArea.setImageURI(data?.data)
-                list.clear()
+            list.clear()
 
-                if (data?.clipData != null) {
-                    val count = data.clipData!!.itemCount
-                    if (count > 10) {
-                        Toast.makeText(applicationContext, "사진은 10장까지 선택 가능합니다.", Toast.LENGTH_LONG)
-                        return
-                    }
+            if (data?.clipData != null) {
+                val count = data.clipData!!.itemCount
+                if (count > 10) {
+                    Toast.makeText(applicationContext, "사진은 10장까지 선택 가능합니다.", Toast.LENGTH_LONG)
+                    return
+                }
 
-                    when (count) {
-                        0 -> imageNumber = "1"
+                for (i in 0 until count) {
+                    val imageUri = data.clipData!!.getItemAt(i).uri
+                    list.add(imageUri)
+                }
 
-                        1 -> imageNumber = "2"
-                        2 -> imageNumber = "3"
-                        3 -> imageNumber = "4"
-                        4 -> imageNumber = "5"
-                        5 -> imageNumber = "6"
-                        6 -> imageNumber = "7"
-                        7 -> imageNumber = "8"
-
-
-                    }
-                    for (i in 0 until count) {
-                        val imageUri = data.clipData!!.getItemAt(i).uri
+            } else {
+                data?.data?.let { uri ->
+                    val imageUri : Uri? = data?.data
+                    if (imageUri != null) {
                         list.add(imageUri)
-                    }
-
-                } else {
-                    data?.data?.let { uri ->
-                        val imageUri: Uri? = data?.data
-                        if (imageUri != null) {
-                            list.add(imageUri)
-                        }
                     }
                 }
             }
-
-            adapter.notifyDataSetChanged()
         }
+
+        adapter.notifyDataSetChanged()
     }
+}

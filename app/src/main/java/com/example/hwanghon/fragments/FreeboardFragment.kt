@@ -1,7 +1,9 @@
 package com.example.hwanghon.fragments
 
+import BoardListLVAdaptor
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,10 +15,15 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hwanghon.R
+import com.example.hwanghon.board.BoardModel
 import com.example.hwanghon.board.BoardWriteActivity
 import com.example.hwanghon.databinding.FragmentChattingBinding
 import com.example.hwanghon.databinding.FragmentFreeboardBinding
+import com.example.hwanghon.utils.FBRef
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
@@ -34,6 +41,12 @@ class FreeboardFragment : Fragment() {
 
     private lateinit var binding : FragmentFreeboardBinding
     private lateinit var auth: FirebaseAuth
+
+    private val boardDataList = mutableListOf<BoardModel>()
+
+    private val boardKeyList = mutableListOf<String>()
+
+    private lateinit var boardLVadapter : BoardListLVAdaptor
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,6 +94,9 @@ class FreeboardFragment : Fragment() {
             it.findNavController().navigate(R.id.action_freeboardFragment_to_lectureFragment)
         }
 
+        boardLVadapter = BoardListLVAdaptor(boardDataList)
+        binding.boardListView.adapter = boardLVadapter
+
 //
 //        val rv = view?.findViewById<RecyclerView>(R.id.boardRV)
 //
@@ -104,11 +120,42 @@ class FreeboardFragment : Fragment() {
 //
 //        }
 
-
+        getFBBoardData()
 
         return binding.root
     }
 
+    private fun getFBBoardData(){
 
+        val postListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                //중복돼서 나올 때 초기화
+                boardDataList.clear()
+
+                for (dataModel in dataSnapshot.children) {
+
+
+
+                    val item = dataModel.getValue(BoardModel::class.java)
+                    boardDataList.add(item!!)
+                    boardKeyList.add(dataModel.key.toString())
+
+                }
+
+                boardKeyList.reverse()
+                boardDataList.reverse()
+                boardLVadapter.notifyDataSetChanged()
+
+
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Getting Post failed, log a message
+            }
+        }
+        FBRef.boardRef.addValueEventListener(postListener)
+
+    }
 
 }

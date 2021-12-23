@@ -11,43 +11,44 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hwanghon.R
+import com.example.hwanghon.board.BoardModel
 import com.example.hwanghon.utils.FBAuth
 
-//class BoardListLVAdaptor(val boardList : MutableList<BoardModel>) : BaseAdapter() {
-//
-//    override fun getCount(): Int {
-//        return boardList.size
-//    }
-//
-//    override fun getItem(position: Int): Any {
-//        return boardList[position]
-//    }
-//
-//    override fun getItemId(position: Int): Long {
-//        return position.toLong()
-//    }
-//
-//    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-//
-//        var view = convertView
-////        if (view == null) {
-//        view = LayoutInflater.from(parent?.context).inflate(R.layout.board_list_item, parent, false)
-////        }
-//
-//        val itemLinearLayoutView = view?.findViewById<LinearLayout>(R.id.itemView)
-//        if(boardList[position].uid.equals(FBAuth.getUid())){
-//            itemLinearLayoutView?.setBackgroundColor(Color.parseColor("#ffa500"))
+class BoardListLVAdaptor(val boardList : MutableList<BoardModel>) : BaseAdapter() {
+
+    override fun getCount(): Int {
+        return boardList.size
+    }
+
+    override fun getItem(position: Int): Any {
+        return boardList[position]
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
+
+        var view = convertView
+//        if (view == null) {
+        view = LayoutInflater.from(parent?.context).inflate(R.layout.activity_board_list_lvadaptor, parent, false)
 //        }
-////
-////        val title = view?.findViewById<TextView>(R.id.titleArea)
-////        title!!.text = boardList[position].title
-////
-////        val content = view?.findViewById<TextView>(R.id.contentArea)
-////        content!!.text = boardList[position].content
-////
-////        val time = view?.findViewById<TextView>(R.id.timeArea)
-////        time!!.text = boardList[position].time
+
+        val itemLinearLayoutView = view?.findViewById<LinearLayout>(R.id.itemView)
+        if(boardList[position].uid.equals(FBAuth.getUid())){
+            itemLinearLayoutView?.setBackgroundColor(Color.parseColor("#ffa500"))
+        }
 //
-//        return view!!
-//    }
-//}
+//        val title = view?.findViewById<TextView>(R.id.titleArea)
+//        title!!.text = boardList[position].title
+//
+//        val content = view?.findViewById<TextView>(R.id.contentArea)
+//        content!!.text = boardList[position].content
+//
+//        val time = view?.findViewById<TextView>(R.id.timeArea)
+//        time!!.text = boardList[position].time
+
+        return view!!
+    }
+}
