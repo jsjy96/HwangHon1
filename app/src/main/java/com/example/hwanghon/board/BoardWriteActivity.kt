@@ -58,7 +58,7 @@ class BoardWriteActivity : AppCompatActivity() {
 
             FBRef.boardRef
                 .child(key)
-                .setValue(BoardModel(title, content, uid, time))
+                .setValue(BoardModel(title, content, uid, time, key))
 
             Toast.makeText(this, "게시글 입력 완료", Toast.LENGTH_LONG).show()
 
