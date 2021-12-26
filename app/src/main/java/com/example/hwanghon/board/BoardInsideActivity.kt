@@ -13,8 +13,8 @@ import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.example.hwanghon.R
-import com.example.hwanghon.comment.CommentLVAdapter
 import com.example.hwanghon.comment.CommentModel
+import com.example.hwanghon.comment.CommentRVAdapter
 import com.example.hwanghon.databinding.ActivityBoardInsideBinding
 import com.example.hwanghon.utils.FBAuth
 import com.example.hwanghon.utils.FBRef
@@ -33,8 +33,7 @@ class BoardInsideActivity : AppCompatActivity() {
 
     private val commentDataList = mutableListOf<CommentModel>()
 
-    private lateinit var commentAdapter: CommentLVAdapter
-
+    lateinit var rvAdapter : CommentRVAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,8 +65,8 @@ class BoardInsideActivity : AppCompatActivity() {
             insertComment(key)
         }
 
-        commentAdapter = CommentLVAdapter(commentDataList)
-        binding.commentLV.adapter = commentAdapter
+        rvAdapter = CommentRVAdapter(commentDataList)
+        binding.commentRV.adapter = rvAdapter
 
 
 
@@ -88,7 +87,7 @@ class BoardInsideActivity : AppCompatActivity() {
                     commentDataList.add(item!!)
                 }
 
-                commentAdapter.notifyDataSetChanged()
+                rvAdapter.notifyDataSetChanged()
             }
             override fun onCancelled(databaseError: DatabaseError) {
                 // Getting Post failed, log a message
