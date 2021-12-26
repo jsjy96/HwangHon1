@@ -1,6 +1,5 @@
 package com.example.hwanghon.fragments
 
-import BoardListLVAdaptor
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -15,9 +14,10 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hwanghon.R
+import com.example.hwanghon.board.BoardInsideActivity
+import com.example.hwanghon.board.BoardListLVAdaptor
 import com.example.hwanghon.board.BoardModel
 import com.example.hwanghon.board.BoardWriteActivity
-import com.example.hwanghon.databinding.FragmentChattingBinding
 import com.example.hwanghon.databinding.FragmentFreeboardBinding
 import com.example.hwanghon.utils.FBRef
 import com.google.firebase.auth.FirebaseAuth
@@ -97,6 +97,21 @@ class FreeboardFragment : Fragment() {
         boardLVadapter = BoardListLVAdaptor(boardDataList)
         binding.boardListView.adapter = boardLVadapter
 
+        binding.boardListView.setOnItemClickListener { parent, view, position, id ->
+
+            //첫번째 방법은 listview에 있는 데이터 다 다른 액티비티로 전달해서 만들기
+//            val intent = Intent(context, BoardinsideActivity::class.java)
+//            intent.putExtra("title", boardDataList[position].title)
+//            intent.putExtra("content", boardDataList[position].content)
+//            intent.putExtra("time", boardDataList[position].time)
+//            startActivity(intent)
+
+            //두번째 방법은 Firebase에 있는 board에 대한 데이터의 id를 기반으로 다시 데이터를 받아오는 방법
+            val intent = Intent(context, BoardInsideActivity::class.java)
+            intent.putExtra("key", boardKeyList[position])
+            startActivity(intent)
+
+        }
 //
 //        val rv = view?.findViewById<RecyclerView>(R.id.boardRV)
 //

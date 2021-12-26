@@ -14,6 +14,7 @@
         <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/drawable/lecture.xml" value="0.38229166666666664" />
         <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/drawable/lecturemain.xml" value="0.38229166666666664" />
         <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/layout/activity_board_edit.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/layout/activity_board_inside.xml" value="0.264" />
         <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/layout/activity_board_list_lvadaptor.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/layout/activity_board_write.xml" value="0.33242753623188404" />
         <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/layout/activity_intro.xml" value="0.36614583333333334" />
@@ -24,8 +25,10 @@
         <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/layout/activity_splash.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/layout/activity_splash2.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/layout/activity_splash_main.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/layout/board_dialog.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/layout/comment_list_item.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/layout/fragment_chatting.xml" value="0.36614583333333334" />
-        <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/layout/fragment_freeboard.xml" value="0.264" />
+        <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/layout/fragment_freeboard.xml" value="0.2" />
         <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/layout/fragment_friend.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/layout/fragment_lecture.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/layout/fragment_meetboard.xml" value="0.2" />

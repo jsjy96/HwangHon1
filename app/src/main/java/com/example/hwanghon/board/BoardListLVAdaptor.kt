@@ -1,5 +1,6 @@
 package com.example.hwanghon.board
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -9,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.hwanghon.R
@@ -59,31 +61,31 @@ class BoardListLVAdaptor(private val boardList : MutableList<BoardModel>) : Base
         time?.text = boardList[position].time
 
 
-
-        val image1 = view?.findViewById<ImageView>(R.id.image1Area)
-        storageRef.child(boardList[position].key+"0"+ ".png").downloadUrl.addOnSuccessListener {
-           Glide.with(this)
-               .load(storageRef)
-               .into(image1)
-
-        }.addOnFailureListener {
-            // Handle any errors
-        }
-
-
-
-        val image2 = view?.findViewById<ImageView>(R.id.image2Area)
-        storageRef.child(boardList[position].key+"1"+ ".png").downloadUrl.addOnSuccessListener {
-            // Got the download URL for 'users/me/profile.png'
-        }.addOnFailureListener {
-            // Handle any errors
-        }
-        val image3 = view?.findViewById<ImageView>(R.id.image3Area)
-        storageRef.child(boardList[position].key+"2"+ ".png").downloadUrl.addOnSuccessListener {
-            // Got the download URL for 'users/me/profile.png'
-        }.addOnFailureListener {
-            // Handle any errors
-        }
+//
+//        val image1 = view?.findViewById<ImageView>(R.id.image1Area)
+//        storageRef.child(boardList[position].key+"0"+ ".png").downloadUrl.addOnSuccessListener {
+//           Glide.with(FragmentActivity())
+//               .load(storageRef)
+//               .into(ImageView(imege1))
+//
+//        }.addOnFailureListener {
+//            // Handle any errors
+//        }
+//
+//
+//
+//        val image2 = view?.findViewById<ImageView>(R.id.image2Area)
+//        storageRef.child(boardList[position].key+"1"+ ".png").downloadUrl.addOnSuccessListener {
+//            // Got the download URL for 'users/me/profile.png'
+//        }.addOnFailureListener {
+//            // Handle any errors
+//        }
+//        val image3 = view?.findViewById<ImageView>(R.id.image3Area)
+//        storageRef.child(boardList[position].key+"2"+ ".png").downloadUrl.addOnSuccessListener {
+//            // Got the download URL for 'users/me/profile.png'
+//        }.addOnFailureListener {
+//            // Handle any errors
+//        }
         return view!!
     }
 }
