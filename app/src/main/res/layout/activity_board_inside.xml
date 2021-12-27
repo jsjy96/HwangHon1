@@ -59,7 +59,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginBottom="60dp">
 
                 <TextView
                     android:id="@+id/timeArea"
@@ -82,13 +83,94 @@
                     app:layout_constraintTop_toBottomOf="@+id/timeArea" />
 
                 <ImageView
-                    android:id="@+id/getImageArea"
+                    android:id="@+id/getImageArea1"
                     android:layout_width="350dp"
                     android:layout_height="wrap_content"
                     android:scaleType="fitCenter"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textArea" />
+
+                <ImageView
+                    android:id="@+id/getImageArea2"
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/getImageArea1" />
+
+                <ImageView
+                    android:id="@+id/getImageArea3"
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/getImageArea2" />
+
+                <ImageView
+                    android:id="@+id/getImageArea4"
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/getImageArea3" />
+
+                <ImageView
+                    android:id="@+id/getImageArea5"
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/getImageArea4" />
+
+                <ImageView
+                    android:id="@+id/getImageArea6"
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/getImageArea5" />
+
+                <ImageView
+                    android:id="@+id/getImageArea7"
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/getImageArea6" />
+
+                <ImageView
+                    android:id="@+id/getImageArea8"
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/getImageArea7" />
+
+                <ImageView
+                    android:id="@+id/getImageArea9"
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/getImageArea8" />
+
+                <ImageView
+                    android:id="@+id/getImageArea10"
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/getImageArea9" />
 
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -98,7 +180,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="10dp"
-                    app:layout_constraintTop_toBottomOf="@+id/getImageArea" />
+                    app:layout_constraintTop_toBottomOf="@+id/getImageArea10" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

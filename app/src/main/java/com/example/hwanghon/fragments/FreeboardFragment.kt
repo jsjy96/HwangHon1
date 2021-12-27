@@ -97,7 +97,7 @@ class FreeboardFragment : Fragment() {
 
 //        boardLVadapter = BoardListLVAdaptor(boardDataList)
 //        binding.boardListView.adapter = boardLVadapter
-        rvAdapter = BoardRVAdapter(boardDataList)
+        rvAdapter = BoardRVAdapter(boardDataList, requireContext())
         binding.boardRV.adapter = rvAdapter
 
         rvAdapter.setOnItemClickListener(object : BoardRVAdapter.OnItemClickListener{

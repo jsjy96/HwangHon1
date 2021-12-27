@@ -143,21 +143,98 @@ class BoardInsideActivity : AppCompatActivity() {
 
     private fun getImagedata(key : String){
 
-        val storageReference = Firebase.storage.reference.child(key + "0.png")
+        var storageReference1 = Firebase.storage.reference.child(key + "0.png")
+        var storageReference2 = Firebase.storage.reference.child(key + "1.png")
+        var storageReference3 = Firebase.storage.reference.child(key + "2.png")
+        var storageReference4 = Firebase.storage.reference.child(key + "3.png")
+        var storageReference5 = Firebase.storage.reference.child(key + "4.png")
+        var storageReference6 = Firebase.storage.reference.child(key + "5.png")
+        var storageReference7 = Firebase.storage.reference.child(key + "6.png")
+        var storageReference8 = Firebase.storage.reference.child(key + "7.png")
+        var storageReference9 = Firebase.storage.reference.child(key + "8.png")
+        var storageReference10 = Firebase.storage.reference.child(key + "9.png")
 
 // ImageView in your Activity
-        val imageViewFromFB = binding.getImageArea
-        storageReference.downloadUrl.addOnCompleteListener(OnCompleteListener { task ->
-            if(task.isSuccessful) {
+        val imageViewFromFB1 = binding.getImageArea1
+        storageReference1.downloadUrl.addOnCompleteListener(OnCompleteListener { task ->
+            if (task.isSuccessful) {
                 Glide.with(this)
                     .load(task.result)
-                    .into(imageViewFromFB)
-            } else {
-
-                binding.getImageArea.isVisible = false
-            }
+                    .into(imageViewFromFB1)
+            } else {binding.getImageArea1.isVisible = false}
         })
-
+        val imageViewFromFB2 = binding.getImageArea2
+        storageReference2.downloadUrl.addOnCompleteListener(OnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Glide.with(this)
+                    .load(task.result)
+                    .into(imageViewFromFB2)
+            } else {binding.getImageArea2.isVisible = false}
+        })
+        val imageViewFromFB3 = binding.getImageArea3
+        storageReference3.downloadUrl.addOnCompleteListener(OnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Glide.with(this)
+                    .load(task.result)
+                    .into(imageViewFromFB3)
+            } else {binding.getImageArea3.isVisible = false}
+        })
+        val imageViewFromFB4 = binding.getImageArea4
+        storageReference4.downloadUrl.addOnCompleteListener(OnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Glide.with(this)
+                    .load(task.result)
+                    .into(imageViewFromFB4)
+            } else {binding.getImageArea4.isVisible = false}
+        })
+        val imageViewFromFB5 = binding.getImageArea5
+        storageReference5.downloadUrl.addOnCompleteListener(OnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Glide.with(this)
+                    .load(task.result)
+                    .into(imageViewFromFB5)
+            } else {binding.getImageArea5.isVisible = false}
+        })
+        val imageViewFromFB6 = binding.getImageArea6
+        storageReference6.downloadUrl.addOnCompleteListener(OnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Glide.with(this)
+                    .load(task.result)
+                    .into(imageViewFromFB6)
+            } else {binding.getImageArea6.isVisible = false}
+        })
+        val imageViewFromFB7 = binding.getImageArea7
+        storageReference7.downloadUrl.addOnCompleteListener(OnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Glide.with(this)
+                    .load(task.result)
+                    .into(imageViewFromFB7)
+            } else {binding.getImageArea7.isVisible = false}
+        })
+        val imageViewFromFB8 = binding.getImageArea8
+        storageReference8.downloadUrl.addOnCompleteListener(OnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Glide.with(this)
+                    .load(task.result)
+                    .into(imageViewFromFB8)
+            } else {binding.getImageArea8.isVisible = false}
+        })
+        val imageViewFromFB9 = binding.getImageArea9
+        storageReference9.downloadUrl.addOnCompleteListener(OnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Glide.with(this)
+                    .load(task.result)
+                    .into(imageViewFromFB9)
+            } else {binding.getImageArea9.isVisible = false}
+        })
+        val imageViewFromFB10 = binding.getImageArea10
+        storageReference10.downloadUrl.addOnCompleteListener(OnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Glide.with(this)
+                    .load(task.result)
+                    .into(imageViewFromFB10)
+            } else {binding.getImageArea10.isVisible = false}
+        })
     }
 
     private fun getBoarddata(key : String){
