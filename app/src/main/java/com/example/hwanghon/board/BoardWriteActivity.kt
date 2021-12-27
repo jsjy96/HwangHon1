@@ -138,7 +138,7 @@ class BoardWriteActivity : AppCompatActivity() {
             if (data?.clipData != null) {
                 val count = data.clipData!!.itemCount
                 if (count > 10) {
-                    Toast.makeText(applicationContext, "사진은 10장까지 선택 가능합니다.", Toast.LENGTH_LONG)
+                    Toast.makeText(this, "사진은 10장까지 선택 가능합니다.", Toast.LENGTH_LONG).show()
                     return
                 }
 
