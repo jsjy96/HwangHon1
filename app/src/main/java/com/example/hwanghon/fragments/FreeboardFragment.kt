@@ -14,10 +14,9 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hwanghon.R
-import com.example.hwanghon.board.BoardInsideActivity
-import com.example.hwanghon.board.BoardListLVAdaptor
-import com.example.hwanghon.board.BoardModel
-import com.example.hwanghon.board.BoardWriteActivity
+import com.example.hwanghon.board.*
+import com.example.hwanghon.comment.CommentModel
+import com.example.hwanghon.comment.CommentRVAdapter
 import com.example.hwanghon.databinding.FragmentFreeboardBinding
 import com.example.hwanghon.utils.FBRef
 import com.google.firebase.auth.FirebaseAuth
@@ -45,8 +44,10 @@ class FreeboardFragment : Fragment() {
     private val boardDataList = mutableListOf<BoardModel>()
 
     private val boardKeyList = mutableListOf<String>()
+//
+//    private lateinit var boardLVadapter : BoardListLVAdaptor
 
-    private lateinit var boardLVadapter : BoardListLVAdaptor
+    lateinit var rvAdapter : BoardRVAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -94,24 +95,38 @@ class FreeboardFragment : Fragment() {
             it.findNavController().navigate(R.id.action_freeboardFragment_to_lectureFragment)
         }
 
-        boardLVadapter = BoardListLVAdaptor(boardDataList)
-        binding.boardListView.adapter = boardLVadapter
+//        boardLVadapter = BoardListLVAdaptor(boardDataList)
+//        binding.boardListView.adapter = boardLVadapter
+        rvAdapter = BoardRVAdapter(boardDataList)
+        binding.boardRV.adapter = rvAdapter
 
-        binding.boardListView.setOnItemClickListener { parent, view, position, id ->
+        rvAdapter.setOnItemClickListener(object : BoardRVAdapter.OnItemClickListener{
+            override fun onItemClick(v: View, data : BoardModel , pos : Int) {
+                Intent(context, BoardInsideActivity::class.java).apply {
+                    putExtra("key", boardKeyList[pos])
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                }.run { startActivity(this) }
+            }
 
-            //첫번째 방법은 listview에 있는 데이터 다 다른 액티비티로 전달해서 만들기
-//            val intent = Intent(context, BoardinsideActivity::class.java)
-//            intent.putExtra("title", boardDataList[position].title)
-//            intent.putExtra("content", boardDataList[position].content)
-//            intent.putExtra("time", boardDataList[position].time)
+        })
+
+
+
+//        binding.boardRV.setOnItemClickListener { parent, view, position, id ->
+//
+//            //첫번째 방법은 listview에 있는 데이터 다 다른 액티비티로 전달해서 만들기
+////            val intent = Intent(context, BoardinsideActivity::class.java)
+////            intent.putExtra("title", boardDataList[position].title)
+////            intent.putExtra("content", boardDataList[position].content)
+////            intent.putExtra("time", boardDataList[position].time)
+////            startActivity(intent)
+//
+//            //두번째 방법은 Firebase에 있는 board에 대한 데이터의 id를 기반으로 다시 데이터를 받아오는 방법
+//            val intent = Intent(context, BoardInsideActivity::class.java)
+//            intent.putExtra("key", boardKeyList[position])
 //            startActivity(intent)
-
-            //두번째 방법은 Firebase에 있는 board에 대한 데이터의 id를 기반으로 다시 데이터를 받아오는 방법
-            val intent = Intent(context, BoardInsideActivity::class.java)
-            intent.putExtra("key", boardKeyList[position])
-            startActivity(intent)
-
-        }
+//
+//        }
 //
 //        val rv = view?.findViewById<RecyclerView>(R.id.boardRV)
 //
@@ -160,7 +175,7 @@ class FreeboardFragment : Fragment() {
 
                 boardKeyList.reverse()
                 boardDataList.reverse()
-                boardLVadapter.notifyDataSetChanged()
+                rvAdapter.notifyDataSetChanged()
 
 
             }

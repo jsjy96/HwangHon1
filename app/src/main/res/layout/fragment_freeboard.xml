@@ -78,8 +78,9 @@
 
             </LinearLayout>
 
-            <ListView
-                android:id="@+id/boardListView"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/boardRV"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="63dp"
