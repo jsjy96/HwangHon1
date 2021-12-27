@@ -1,16 +1,26 @@
 package com.example.hwanghon.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.example.hwanghon.R
+import com.example.hwanghon.board.BoardInsideActivity
+import com.example.hwanghon.board.BoardModel
+import com.example.hwanghon.board.BoardRVAdapter
 import com.example.hwanghon.databinding.FragmentMeetboardBinding
 import com.example.hwanghon.databinding.FragmentMyboardBinding
+import com.example.hwanghon.utils.FBAuth
+import com.example.hwanghon.utils.FBRef
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,6 +36,11 @@ class MyboardFragment : Fragment() {
 
     private lateinit var binding : FragmentMyboardBinding
     private lateinit var auth: FirebaseAuth
+
+    private val boardDataList = mutableListOf<BoardModel>()
+
+    private val boardKeyList = mutableListOf<String>()
+    lateinit var rvAdapter : BoardRVAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,6 +81,19 @@ class MyboardFragment : Fragment() {
             it.findNavController().navigate(R.id.action_myboardFragment_to_lectureFragment)
         }
 
+        rvAdapter = BoardRVAdapter(boardDataList, requireContext())
+        binding.boardRV.adapter = rvAdapter
+
+        rvAdapter.setOnItemClickListener(object : BoardRVAdapter.OnItemClickListener{
+            override fun onItemClick(v: View, data : BoardModel, pos : Int) {
+                Intent(context, BoardInsideActivity::class.java).apply {
+                    putExtra("key", boardKeyList[pos])
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                }.run { startActivity(this) }
+            }
+
+        })
+
 
 
 //        binding.logoutBtn.setOnClickListener {
@@ -76,11 +104,50 @@ class MyboardFragment : Fragment() {
 //
 //        }
 
+        getMyFBBoardData()
+
 
 
         return binding.root
     }
 
+    private fun getMyFBBoardData(){
 
+        val postListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                //중복돼서 나올 때 초기화
+                boardDataList.clear()
+
+                for (dataModel in dataSnapshot.children) {
+
+                    val item = dataModel.getValue(BoardModel::class.java)
+
+                    val myUid = FBAuth.getUid()
+                    val writerUid = item?.uid
+
+                    if(myUid.equals(writerUid)){
+                    boardDataList.add(item!!)
+                    boardKeyList.add(dataModel.key.toString())
+                    } else {
+                    }
+
+                }
+
+
+                boardKeyList.reverse()
+                boardDataList.reverse()
+                rvAdapter.notifyDataSetChanged()
+
+
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Getting Post failed, log a message
+            }
+        }
+        FBRef.boardRef.addValueEventListener(postListener)
+
+    }
 
 }
