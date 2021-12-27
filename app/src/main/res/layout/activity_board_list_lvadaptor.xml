@@ -59,14 +59,18 @@
 
         <ImageView
             android:id="@+id/image1Area"
+            android:scaleType="centerCrop"
             android:layout_width="match_parent"
             android:layout_height="180dp"
+            android:layout_gravity="center"
             android:layout_weight="1"/>
 
         <ImageView
             android:id="@+id/image2Area"
+            android:scaleType="centerCrop"
             android:layout_width="match_parent"
             android:layout_height="180dp"
+            android:layout_gravity="center"
             android:layout_weight="1"/>
         <FrameLayout
             android:id="@+id/image3layout"
@@ -76,6 +80,7 @@
 
             <ImageView
                 android:id="@+id/image3Area"
+                android:scaleType="centerCrop"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 

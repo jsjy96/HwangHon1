@@ -5,7 +5,9 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
@@ -35,6 +37,10 @@ class BoardRVAdapter(private val boardDataList : MutableList<BoardModel>, val co
         return boardDataList.size
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
+
     inner class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
 
         fun bindItems(boardDataList : BoardModel) {
@@ -60,34 +66,60 @@ class BoardRVAdapter(private val boardDataList : MutableList<BoardModel>, val co
             val storageRef1 = Firebase.storage.reference.child(key + "0.png")
             val storageRef2 = Firebase.storage.reference.child(key + "1.png")
             val storageRef3 = Firebase.storage.reference.child(key + "2.png")
+            val storageRef4 = Firebase.storage.reference.child(key + "3.png")
             val image1: ImageView =itemView.findViewById(R.id.image1Area)
             val image2: ImageView =itemView.findViewById(R.id.image2Area)
             val image3: ImageView =itemView.findViewById(R.id.image3Area)
+            val moretext = itemView.findViewById<TextView>(R.id.moreText)
+            val imageArea = itemView.findViewById<LinearLayout>(R.id.imageArea)
+            val image3layout = itemView.findViewById<FrameLayout>(R.id.image3layout)
+
 
             storageRef1.downloadUrl.addOnCompleteListener({ task ->
-            if(task.isSuccessful) {
-                Glide.with(context)
-                    .load(task.result)
-                    .into(image1)
-            } else {
-            }
+                if(task.isSuccessful) {
+                    Glide.with(context)
+                        .load(task.result)
+                        .into(image1)
+                    image1.visibility=View.VISIBLE
+                    storageRef2.downloadUrl.addOnCompleteListener({ task ->
+                        if(task.isSuccessful) {
+                            Glide.with(context)
+                                .load(task.result)
+                                .into(image2)
+                            image2.visibility=View.VISIBLE
+                            storageRef3.downloadUrl.addOnCompleteListener({ task ->
+                                if(task.isSuccessful) {
+                                    Glide.with(context)
+                                        .load(task.result)
+                                        .into(image3)
+                                    image3layout.visibility=View.VISIBLE
+                                    storageRef4.downloadUrl.addOnCompleteListener({ task ->
+                                        if(task.isSuccessful) {
+                                            moretext.visibility=View.VISIBLE
+                                        } else {
+                                            moretext.visibility=View.GONE
+                                            //더보기, 블러 빼줘
+                                        }
+                                    })
+
+                                } else {
+                                    moretext.visibility=View.GONE
+                                    image3layout.visibility=View.GONE
+                                    //3, 더보기, 블러 삭제
+                                }
+                            })
+                        } else {
+                            moretext.visibility=View.GONE
+                            image3layout.visibility=View.GONE
+                            image2.visibility=View.GONE
+                            //2,3,더보기, 블러 삭제
+                        }
+                    })
+                } else {
+                    imageArea.visibility=View.GONE
+                }
             })
-            storageRef2.downloadUrl.addOnCompleteListener({ task ->
-            if(task.isSuccessful) {
-                Glide.with(context)
-                    .load(task.result)
-                    .into(image2)
-            } else {
-            }
-            })
-            storageRef3.downloadUrl.addOnCompleteListener({ task ->
-            if(task.isSuccessful) {
-                Glide.with(context)
-                    .load(task.result)
-                    .into(image3)
-            } else {
-            }
-            })
+
 
 //            val storageRef = Firebase.storage.reference.child(key + "0.png")
 //
