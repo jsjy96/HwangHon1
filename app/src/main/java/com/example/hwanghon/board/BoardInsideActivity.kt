@@ -111,7 +111,8 @@ class BoardInsideActivity : AppCompatActivity() {
             .setValue(
                 CommentModel(
                     binding.commentArea.text.toString(),
-                    FBAuth.getTime()
+                    FBAuth.getTime(),
+                    FBAuth.getUid()
                 )
             )
 

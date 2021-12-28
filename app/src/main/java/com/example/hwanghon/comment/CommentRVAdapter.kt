@@ -31,9 +31,11 @@ class CommentRVAdapter(private val commentDataList : MutableList<CommentModel>) 
 
             val title = itemView.findViewById<TextView>(R.id.titleArea)
             val time = itemView.findViewById<TextView>(R.id.timeArea)
+            val username = itemView.findViewById<TextView>(R.id.usernameArea)
 
             title!!.text = commentDataList.commentTitle
             time!!.text = commentDataList.commentCreatedTime
+            username!!.text = commentDataList.username
 
         }
 
