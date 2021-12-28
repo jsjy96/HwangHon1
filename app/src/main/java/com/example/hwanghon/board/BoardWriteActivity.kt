@@ -63,7 +63,7 @@ class BoardWriteActivity : AppCompatActivity() {
                         .child(key)
                         .setValue(BoardModel(title, content, uid, time, key))
 
-                    Toast.makeText(this, "게시글 입력 완료", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "게시글이 입력되었습니다", Toast.LENGTH_LONG).show()
 
                     if (isImageUpload == true) {
                         imageUpload(key)
@@ -153,7 +153,7 @@ class BoardWriteActivity : AppCompatActivity() {
             if (data?.clipData != null) {
                 val count = data.clipData!!.itemCount
                 if (count > 10) {
-                    Toast.makeText(this, "사진은 10장까지 선택 가능합니다.", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "사진은 10장까지 선택 가능합니다", Toast.LENGTH_LONG).show()
                     return
                 }
 

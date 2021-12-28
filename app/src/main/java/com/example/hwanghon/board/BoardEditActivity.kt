@@ -51,11 +51,26 @@ class BoardEditActivity : AppCompatActivity() {
 
         binding.editBtn.setOnClickListener {
 
+            val title = binding.titleArea.text.toString()
+            val content = binding.contentArea.text.toString()
+
+            if(title.length > 0) {
+
+                if(content.length > 0) {
             editBoardData(key)
+
             if(isImageUpload == true) {
                 imageUpload(key)
             }
             finish()
+                }
+                else {
+                    Toast.makeText(this, "'내용'을 작성해주세요", Toast.LENGTH_LONG).show()
+                }
+            }
+            else {
+                Toast.makeText(this, "'제목'을 작성해주세요", Toast.LENGTH_LONG).show()
+            }
 
         }
         var getImage_btn = findViewById<Button>(R.id.getImage)
@@ -131,7 +146,7 @@ class BoardEditActivity : AppCompatActivity() {
                     writetime, key)
             )
 
-        Toast.makeText(this, "수정완료", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "게시글이 수정되었습니다", Toast.LENGTH_LONG).show()
         finish()
     }
 
@@ -176,7 +191,7 @@ class BoardEditActivity : AppCompatActivity() {
             if (data?.clipData != null) {
                 val count = data.clipData!!.itemCount
                 if (count > 10) {
-                    Toast.makeText(this, "사진은 10장까지 선택 가능합니다.", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "사진은 10장까지 선택 가능합니다", Toast.LENGTH_LONG).show()
                     return
                 }
 

@@ -224,10 +224,10 @@
                 <TextView
                     android:id="@+id/linearLayout3"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="45dp"
                     android:background="#7AF6A3A3"
                     android:text="    댓글"
-                    android:textSize="25dp"
+                    android:textSize="30dp"
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:gravity="center_vertical"
@@ -263,7 +263,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:background="@android:color/transparent"
-                android:textSize="20sp"
+                android:textSize="30dp"
                 android:hint="댓글을 입력해주세요" />
 
             <ImageView

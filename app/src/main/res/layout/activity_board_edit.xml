@@ -44,7 +44,7 @@
                     android:layout_width="match_parent"
                     android:background="@android:color/transparent"
                     android:hint="제목을 입력해주세요"
-                    android:textSize="20sp"
+                    android:textSize="22sp"
                     android:layout_height="wrap_content"
                     android:inputType="text"/>
 
@@ -61,7 +61,7 @@
                     android:layout_width="match_parent"
                     android:background="@android:color/transparent"
                     android:hint="내용을 입력해주세요"
-                    android:textSize="20sp"
+                    android:textSize="22sp"
                     android:layout_height="wrap_content"/>
 
                 <LinearLayout

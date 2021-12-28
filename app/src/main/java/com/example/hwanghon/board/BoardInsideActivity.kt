@@ -70,8 +70,8 @@ class BoardInsideActivity : AppCompatActivity() {
         binding.commentRV.adapter = rvAdapter
 
 
+            getCommentData(key)
 
-        getCommentData(key)
     }
 
     fun getCommentData(key : String){
@@ -105,19 +105,26 @@ class BoardInsideActivity : AppCompatActivity() {
         //         - CommentData
         //         - CommentData
         //         - CommentData
-        FBRef.commentRef
-            .child(key)
-            .push()
-            .setValue(
-                CommentModel(
-                    binding.commentArea.text.toString(),
-                    FBAuth.getTime(),
-                    FBAuth.getUid()
-                )
-            )
+        val comment = binding.commentArea.text.toString()
+        if(comment.length > 0) {
 
-        Toast.makeText(this, "댓글 입력 완료", Toast.LENGTH_SHORT).show()
-        binding.commentArea.setText("")
+            FBRef.commentRef
+                .child(key)
+                .push()
+                .setValue(
+                    CommentModel(
+                        binding.commentArea.text.toString(),
+                        FBAuth.getTime(),
+                        FBAuth.getUid()
+                    )
+                )
+
+            Toast.makeText(this, "댓글이 입력되었습니다", Toast.LENGTH_LONG).show()
+            binding.commentArea.setText("")
+        }
+        else {
+            Toast.makeText(this, "댓글을 한 글자 이상 작성해주세요", Toast.LENGTH_LONG).show()
+        }
 
     }
 
@@ -129,7 +136,7 @@ class BoardInsideActivity : AppCompatActivity() {
 
         val alertDialog = mBuilder.show()
         alertDialog.findViewById<Button>(R.id.editBtn)?.setOnClickListener {
-            Toast.makeText(this, "수정버튼을 눌렀습니다", Toast.LENGTH_LONG).show()
+//            Toast.makeText(this, "수정버튼을 눌렀습니다", Toast.LENGTH_LONG).show()
 
             val intent = Intent(this, BoardEditActivity::class.java)
             intent.putExtra("key", key)
@@ -138,7 +145,7 @@ class BoardInsideActivity : AppCompatActivity() {
         }
         alertDialog.findViewById<Button>(R.id.removeBtn)?.setOnClickListener {
             FBRef.boardRef.child(key).removeValue()
-            Toast.makeText(this, "삭제완료", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "게시글이 삭제되었습니다", Toast.LENGTH_LONG).show()
             finish()
         }
     }

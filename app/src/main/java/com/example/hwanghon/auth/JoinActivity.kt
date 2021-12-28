@@ -59,11 +59,11 @@ class JoinActivity : AppCompatActivity() {
 
         //값이 비워져있는지 확인
         if(email.isEmpty()) {
-            Toast.makeText(this, "이메일을 입력해주세요", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "별명을 입력해주세요", Toast.LENGTH_LONG).show()
             isGoToJoin = false
         }
         if(emailRegex.matchEntire(email) == null) {
-            Toast.makeText(this, "이메일 안됨", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "별명에 띄어쓰기나 특수문자를 사용하실 수 없습니다", Toast.LENGTH_LONG).show()
             isGoToJoin = false
         }
         if(password1.isEmpty()) {
@@ -89,7 +89,7 @@ class JoinActivity : AppCompatActivity() {
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
 
-                        Toast.makeText(this, "성공", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, "회원가입이 되었습니다", Toast.LENGTH_LONG).show()
 
                         val intent = Intent(this, MainActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -100,8 +100,8 @@ class JoinActivity : AppCompatActivity() {
                 .addOnFailureListener {
                     val error = it.toString().split(": ")[0].split('.').last()
                     if(error == "FirebaseAuthUserCollisionException")
-                        Toast.makeText(this, "별명이 중복됩니다.", Toast.LENGTH_LONG).show()
-                    Toast.makeText(this, error, Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, "별명이 중복됩니다", Toast.LENGTH_LONG).show()
+//                    Toast.makeText(this, error, Toast.LENGTH_LONG).show()
                 }
         }
     }
