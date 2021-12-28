@@ -20,7 +20,7 @@
                 android:layout_marginTop="50dp"
                 android:text="로그인"
                 android:textColor="#ffffff"
-                android:textSize="20dp"
+                android:textSize="35dp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -36,6 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:hint="별명"
+                android:textSize="22sp"
                 android:maxLength="20"
                 android:inputType="text" />
 
@@ -51,6 +52,7 @@
                 android:layout_width="match_parent"
                 android:hint="비밀번호 (6자리 이상)"
                 android:inputType="textPassword"
+                android:textSize="22sp"
                 android:layout_height="50dp"
                 style="@style/AuthEditText"
                 android:maxLength="20"
@@ -70,6 +72,7 @@
                 android:text="로그인하기"
                 android:textColor="#fff"
                 android:textStyle="bold"
+                android:textSize="25dp"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"/>
 

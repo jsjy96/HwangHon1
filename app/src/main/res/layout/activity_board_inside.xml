@@ -70,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
                     android:text="제목영역"
-                    android:textSize="30dp"
+                    android:textSize="25sp"
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     app:layout_constraintTop_toTopOf="parent"/>
@@ -105,7 +105,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:text="time"
-                    android:textColor="#999"
+                    android:textColor="#818181"
                     android:textSize="20dp"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView"
                     app:layout_constraintStart_toEndOf="@+id/imageView"
@@ -126,7 +126,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
                     android:text="내용영역"
-                    android:textSize="27dp"
+                    android:textSize="22sp"
                     android:textColor="@color/black"
                     app:layout_constraintTop_toBottomOf="@+id/timeArea" />
 
@@ -227,7 +227,8 @@
                     android:layout_height="40dp"
                     android:background="#7AF6A3A3"
                     android:text="    댓글"
-                    android:textSize="20dp"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
                     android:textColor="@color/black"
                     android:gravity="center_vertical"
                     android:layout_marginTop="15dp"
@@ -262,6 +263,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:background="@android:color/transparent"
+                android:textSize="20sp"
                 android:hint="댓글을 입력해주세요" />
 
             <ImageView

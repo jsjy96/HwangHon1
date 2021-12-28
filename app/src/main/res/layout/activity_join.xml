@@ -20,7 +20,7 @@
                 android:layout_marginTop="50dp"
                 android:text="회원가입"
                 android:textColor="#ffffff"
-                android:textSize="20dp"
+                android:textSize="35dp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -34,6 +34,7 @@
                 android:id="@+id/emailArea"
                 style="@style/AuthEditText"
                 android:layout_width="match_parent"
+                android:textSize="22sp"
                 android:layout_height="50dp"
                 android:hint="별명 (한글, 영어 사용 가능)"
                 android:inputType="text"
@@ -50,6 +51,7 @@
                 android:id="@+id/passwordArea1"
                 android:layout_width="match_parent"
                 android:hint="비밀번호 (6자리 이상)"
+                android:textSize="22sp"
                 android:maxLength="20"
                 android:inputType="textPassword"
                 android:layout_height="50dp"
@@ -67,6 +69,7 @@
                 android:id="@+id/passwordArea2"
                 android:layout_width="match_parent"
                 android:hint="비밀번호 확인"
+                android:textSize="22sp"
                 android:inputType="textPassword"
                 android:layout_height="50dp"
                 style="@style/AuthEditText"
@@ -85,6 +88,7 @@
                 android:layout_margin="20dp"
                 android:background="@drawable/background_radius_maincolor"
                 android:text="회원가입하기"
+                android:textSize="25dp"
                 android:textColor="#ffffff"
                 android:textStyle="bold"
                 android:layout_width="match_parent"

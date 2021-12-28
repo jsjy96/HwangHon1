@@ -49,7 +49,7 @@
                     android:orientation="horizontal"
                     android:text="자유게시판"
                     android:textColor="@color/white"
-                    android:textSize="25dp"
+                    android:textSize="27dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -62,7 +62,7 @@
                     android:orientation="horizontal"
                     android:text="만남게시판"
                     android:textColor="#999999"
-                    android:textSize="25dp" />
+                    android:textSize="27dp" />
 
                 <TextView
                     android:id="@+id/myboardTap"
@@ -74,7 +74,7 @@
                     android:orientation="horizontal"
                     android:text="내가 쓴 글"
                     android:textColor="#999999"
-                    android:textSize="25dp" />
+                    android:textSize="27dp" />
 
             </LinearLayout>
 
