@@ -40,7 +40,7 @@
             android:maxLines="1"
             android:text="username"
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/timeArea"
@@ -49,7 +49,7 @@
             android:layout_marginTop="3dp"
             android:text="time"
             android:textColor="#999999"
-            android:textSize="15sp" />
+            android:textSize="15dp" />
 
     </LinearLayout>
     <TextView
@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:text="title"
         android:textColor="@color/black"
-        android:textSize="30sp"
+        android:textSize="25dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="5dp"
