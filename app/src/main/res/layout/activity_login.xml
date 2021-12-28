@@ -36,6 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:hint="별명"
+                android:maxLength="20"
                 android:inputType="text" />
 
             <LinearLayout
@@ -52,6 +53,7 @@
                 android:inputType="textPassword"
                 android:layout_height="50dp"
                 style="@style/AuthEditText"
+                android:maxLength="20"
                 />
 
             <LinearLayout

@@ -56,17 +56,32 @@ class BoardWriteActivity : AppCompatActivity() {
 
             val key = FBRef.boardRef.push().key.toString()
 
-            FBRef.boardRef
-                .child(key)
-                .setValue(BoardModel(title, content, uid, time, key))
+            if(title.length > 0) {
 
-            Toast.makeText(this, "게시글 입력 완료", Toast.LENGTH_LONG).show()
+                if(content.length > 0) {
+                    FBRef.boardRef
+                        .child(key)
+                        .setValue(BoardModel(title, content, uid, time, key))
 
-            if(isImageUpload == true) {
-                imageUpload(key)
+                    Toast.makeText(this, "게시글 입력 완료", Toast.LENGTH_LONG).show()
+
+                    if (isImageUpload == true) {
+                        imageUpload(key)
+                    }
+
+                    finish()
+                }
+                else {
+                    Toast.makeText(this, "'내용'을 작성해주세요", Toast.LENGTH_LONG).show()
+
+
+                }
             }
 
-            finish()
+            else {
+                Toast.makeText(this, "'제목'을 작성해주세요", Toast.LENGTH_LONG).show()
+            }
+
 
 
         }

@@ -45,6 +45,7 @@ class BoardInsideActivity : AppCompatActivity() {
         binding.boardSettingIcon.setOnClickListener {
             showDialog()
         }
+
 //첫번째 방법
 //        val title = intent.getStringExtra("title").toString()
 //        val content = intent.getStringExtra("content").toString()
@@ -246,6 +247,7 @@ class BoardInsideActivity : AppCompatActivity() {
                 binding.titleArea.text = dataModel?.title
                 binding.textArea.text = dataModel?.content
                 binding.timeArea.text = dataModel?.time
+                binding.usernameArea.text = dataModel?.uid
 
                 val myUid = FBAuth.getUid()
                 val writerUid = dataModel?.uid
