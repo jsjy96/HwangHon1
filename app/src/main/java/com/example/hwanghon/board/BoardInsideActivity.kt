@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
+import android.view.View
 import android.view.WindowManager
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
@@ -96,7 +97,11 @@ class BoardInsideActivity : AppCompatActivity() {
             }
         }
         FBRef.commentRef.child(key).addValueEventListener(postListener)
+
+
+
     }
+
 
     fun insertComment(key : String){
         // comment
