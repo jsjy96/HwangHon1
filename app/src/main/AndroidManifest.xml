@@ -12,6 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HwangHon">
         <activity
+            android:name=".friend.FriendRVAdapter"
+            android:exported="true" />
+        <activity
+            android:name=".friend.FriendProfileActivity"
+            android:exported="true" />
+        <activity
+            android:name=".friend.MyProfileActivity"
+            android:exported="true" />
+        <activity
             android:name=".comment.CommentRVAdapter"
             android:exported="true" />
         <activity

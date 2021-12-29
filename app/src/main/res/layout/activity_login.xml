@@ -37,7 +37,7 @@
                 android:layout_height="50dp"
                 android:hint="별명"
                 android:textSize="30dp"
-                android:maxLength="20"
+                android:maxLength="15"
                 android:inputType="text" />
 
             <LinearLayout
@@ -55,7 +55,7 @@
                 android:textSize="30dp"
                 android:layout_height="50dp"
                 style="@style/AuthEditText"
-                android:maxLength="20"
+                android:maxLength="15"
                 />
 
             <LinearLayout
