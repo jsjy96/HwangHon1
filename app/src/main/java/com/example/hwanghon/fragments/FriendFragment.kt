@@ -12,8 +12,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.DataBindingUtil.setContentView
 import androidx.navigation.findNavController
 import com.example.hwanghon.R
+import com.example.hwanghon.board.BoardWriteActivity
 import com.example.hwanghon.databinding.FragmentChattingBinding
 import com.example.hwanghon.databinding.FragmentFriendBinding
+import com.example.hwanghon.friend.MyProfileActivity
 import com.example.hwanghon.setting.SettingActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -47,6 +49,11 @@ class FriendFragment : Fragment() {
     ): View? {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_friend, container, false)
+
+        binding.cardview1.setOnClickListener {
+            val intent = Intent(context, MyProfileActivity::class.java)
+            startActivity(intent)
+        }
 
         binding.chattingTap.setOnClickListener {
 
