@@ -82,7 +82,7 @@
                     android:layout_height="70dp"
                     android:layout_marginLeft="7dp"
                     android:layout_marginTop="10dp"
-                    android:src="@drawable/person"
+                    android:src="@drawable/person3"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/titleArea" />
 
@@ -271,7 +271,7 @@
                 android:id="@+id/commentBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/btnwrite" />
+                android:src="@drawable/btnwrite2" />
 
         </LinearLayout>
 

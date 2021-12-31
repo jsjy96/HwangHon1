@@ -15,12 +15,12 @@
         android:layout_width="350dp"
         android:layout_height="350dp"
         android:layout_marginTop="30dp"
-        android:src="@drawable/person"
+        android:src="@drawable/person3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profileimageArea"
         android:layout_width="350dp"
         android:layout_height="350dp"
