@@ -9,4 +9,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="pink">#7AF6A3A3</color>
+    <color name="ucrop_color_statusbar">#ef2058</color>
+
 </resources>
