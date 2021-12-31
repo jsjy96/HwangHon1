@@ -21,6 +21,9 @@ import com.example.hwanghon.databinding.ActivityMyProfileBinding
 import com.example.hwanghon.utils.FBAuth
 import com.example.hwanghon.utils.FBRef
 import com.github.drjacky.imagepicker.ImagePicker
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 
 class MyProfileActivity : AppCompatActivity() {
 
@@ -42,6 +45,28 @@ class MyProfileActivity : AppCompatActivity() {
         binding.imagechangeBtn.setOnClickListener {
             showDialog()
         }
+
+        val postListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                val profileModel = dataSnapshot.getValue(ProfileModel::class.java)
+
+                binding.usernameArea.setText(profileModel?.nickname)
+                binding.profilemessage.setText(profileModel?.profilemessage)
+
+
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+
+
+            }
+
+        }
+            val uid = FBAuth.getUid()
+            FBRef.profileRef.child(uid).addValueEventListener(postListener)
+
+
 //        binding.editBtn.setOnClickListener {
 //
 //            val profileMessage = binding.profilemessage.text.toString()

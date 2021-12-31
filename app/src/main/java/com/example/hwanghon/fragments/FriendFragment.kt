@@ -74,7 +74,10 @@ class FriendFragment : Fragment() {
                 val profileModel = dataSnapshot.getValue(ProfileModel::class.java)
 
                 binding.usernameArea.text = profileModel?.nickname
-                binding.profilemessageArea.text = profileModel?.profilemessage
+                binding.profilemessageArea!!.text = profileModel?.profilemessage
+
+//                binding.usernameArea.setText(profileModel?.nickname)
+//                binding.profilemessageArea.setText(profileModel?.profilemessage)
 
 
             }
