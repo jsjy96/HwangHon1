@@ -10,7 +10,11 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.example.hwanghon.MainActivity
 import com.example.hwanghon.R
+import com.example.hwanghon.board.BoardModel
 import com.example.hwanghon.databinding.ActivityLoginBinding
+import com.example.hwanghon.friend.ProfileModel
+import com.example.hwanghon.utils.FBAuth
+import com.example.hwanghon.utils.FBRef
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -36,6 +40,8 @@ class LoginActivity : AppCompatActivity() {
             auth.signInWithEmailAndPassword("$email@test.com", password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
+
+
 
                         Toast.makeText(this, "로그인 성공", Toast.LENGTH_LONG).show()
                         val intent = Intent(this, MainActivity::class.java)

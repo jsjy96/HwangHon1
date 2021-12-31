@@ -6,6 +6,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
@@ -15,7 +16,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import com.example.hwanghon.R
 import com.example.hwanghon.board.BoardEditActivity
+import com.example.hwanghon.board.BoardModel
 import com.example.hwanghon.databinding.ActivityMyProfileBinding
+import com.example.hwanghon.utils.FBAuth
 import com.example.hwanghon.utils.FBRef
 import com.github.drjacky.imagepicker.ImagePicker
 
@@ -38,10 +41,29 @@ class MyProfileActivity : AppCompatActivity() {
 
         binding.imagechangeBtn.setOnClickListener {
             showDialog()
-
-
-
         }
+//        binding.editBtn.setOnClickListener {
+//
+//            val profileMessage = binding.profilemessage.text.toString()
+//            val nickname = binding.contentArea.text.toString()
+//            val uid = FBAuth.getUid()
+//            val time = FBAuth.getTime()
+//
+//
+//            FBRef.profileRef
+//                .child(uid)
+//                .setValue(BoardModel(nickname, profileMessage))
+//
+//            Toast.makeText(this, "게시글 입력 완료", Toast.LENGTH_LONG).show()
+//
+//            if(isImageUpload == true) {
+//                imageUpload(key)
+//            }
+//
+//            finish()
+//
+//
+//        }
     }
 
 //    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

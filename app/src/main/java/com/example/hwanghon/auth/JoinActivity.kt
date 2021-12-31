@@ -11,6 +11,9 @@ import androidx.databinding.DataBindingUtil
 import com.example.hwanghon.MainActivity
 import com.example.hwanghon.R
 import com.example.hwanghon.databinding.ActivityJoinBinding
+import com.example.hwanghon.friend.ProfileModel
+import com.example.hwanghon.utils.FBAuth
+import com.example.hwanghon.utils.FBRef
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -89,6 +92,12 @@ class JoinActivity : AppCompatActivity() {
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
 
+                        val uid = FBAuth.getUid()
+                        val nickname = email
+
+                        FBRef.profileRef
+                            .child(uid)
+                            .setValue(ProfileModel(nickname))
                         Toast.makeText(this, "회원가입이 되었습니다", Toast.LENGTH_LONG).show()
 
                         val intent = Intent(this, MainActivity::class.java)
