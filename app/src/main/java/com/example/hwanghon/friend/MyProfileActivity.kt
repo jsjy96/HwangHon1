@@ -63,8 +63,8 @@ class MyProfileActivity : AppCompatActivity() {
             }
 
         }
-            val uid = FBAuth.getUid()
-            FBRef.profileRef.child(uid).addValueEventListener(postListener)
+        val uid = FBAuth.getUid()
+        FBRef.profileRef.child(uid).addValueEventListener(postListener)
 
 
 //        binding.editBtn.setOnClickListener {

@@ -61,7 +61,7 @@ class BoardRVAdapter(private val boardDataList : MutableList<BoardModel>, val co
             title!!.text = boardDataList.title
             time!!.text = boardDataList.time
             content!!.text = boardDataList.content
-            username!!.text = boardDataList.uid
+            username!!.text = boardDataList.nickname
 
             val storageRef1 = Firebase.storage.reference.child(key + "0.png")
             val storageRef2 = Firebase.storage.reference.child(key + "1.png")

@@ -260,12 +260,12 @@ class BoardInsideActivity : AppCompatActivity() {
                 binding.titleArea.text = dataModel?.title
                 binding.textArea.text = dataModel?.content
                 binding.timeArea.text = dataModel?.time
-                binding.usernameArea.text = dataModel?.uid
+                binding.usernameArea.text = dataModel?.nickname
 
-                val myUid = FBAuth.getUid()
-                val writerUid = dataModel?.uid
+                val myNickname = FBAuth.getNickName()
+                val writerUid = dataModel?.nickname
 
-                if(myUid.equals(writerUid)){
+                if(myNickname.equals(writerUid)){
                     binding.boardSettingIcon.isVisible = true
                 } else {
                 }

@@ -17,8 +17,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hwanghon.R
 import com.example.hwanghon.databinding.ActivityBoardWriteBinding
+import com.example.hwanghon.friend.ProfileModel
 import com.example.hwanghon.utils.FBAuth
 import com.example.hwanghon.utils.FBRef
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import java.io.ByteArrayOutputStream
@@ -48,7 +52,7 @@ class BoardWriteActivity : AppCompatActivity() {
 
             val title = binding.titleArea.text.toString()
             val content = binding.contentArea.text.toString()
-            val uid = FBAuth.getUid()
+            val nickname = FBAuth.getNickName()
             val time = FBAuth.getTime()
 
             Log.d(TAG, title)
@@ -61,7 +65,7 @@ class BoardWriteActivity : AppCompatActivity() {
                 if(content.length > 0) {
                     FBRef.boardRef
                         .child(key)
-                        .setValue(BoardModel(title, content, uid, time, key))
+                        .setValue(BoardModel(title, content, nickname, time, key))
 
                     Toast.makeText(this, "게시글이 입력되었습니다", Toast.LENGTH_LONG).show()
 
@@ -174,4 +178,6 @@ class BoardWriteActivity : AppCompatActivity() {
 
         adapter.notifyDataSetChanged()
     }
+
+
 }
