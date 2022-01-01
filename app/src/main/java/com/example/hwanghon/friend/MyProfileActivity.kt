@@ -2,6 +2,8 @@ package com.example.hwanghon.friend
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,10 +12,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.RecyclerView
 import com.example.hwanghon.R
 import com.example.hwanghon.board.BoardEditActivity
 import com.example.hwanghon.board.BoardModel
@@ -24,10 +28,15 @@ import com.github.drjacky.imagepicker.ImagePicker
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
+import java.io.ByteArrayOutputStream
 
 class MyProfileActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMyProfileBinding
+
+    private var isImageUpload = false
 
     private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (it.resultCode == Activity.RESULT_OK) {
@@ -78,9 +87,9 @@ class MyProfileActivity : AppCompatActivity() {
                 .setValue(ProfileModel(nickname, profileMessage))
 
 
-//            if(isImageUpload == true) {
-//                imageUpload(key)
-//            }
+            if(isImageUpload == true) {
+                imageUpload(uid)
+            }
 
             finish()
 
@@ -134,6 +143,8 @@ class MyProfileActivity : AppCompatActivity() {
 //            val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
 //            startActivityForResult(gallery, 100)
 
+            isImageUpload = true
+
             binding.profileimageArea.visibility= View.VISIBLE
 
             alertDialog.dismiss()
@@ -145,6 +156,31 @@ class MyProfileActivity : AppCompatActivity() {
 
             alertDialog.dismiss()
         }
+    }
+
+    private fun imageUpload(uid: String) {
+
+        val storage = Firebase.storage
+        val storageRef = storage.reference
+        val mountainsRef = storageRef.child(uid + ".png")
+
+        val profileimage = binding.profileimageArea
+
+        profileimage.isDrawingCacheEnabled = true
+        profileimage.buildDrawingCache()
+        val bitmap = (profileimage.drawable as BitmapDrawable).bitmap
+        val baos = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
+        val data = baos.toByteArray()
+
+        var uploadTask = mountainsRef.putBytes(data)
+        uploadTask.addOnFailureListener {
+            // Handle unsuccessful uploads
+        }.addOnSuccessListener { taskSnapshot ->
+            // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
+            // ...
+        }
+
     }
 
 
