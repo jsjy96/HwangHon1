@@ -14,6 +14,7 @@ import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.DataBindingUtil.setContentView
 import androidx.navigation.findNavController
+import com.bumptech.glide.Glide
 import com.example.hwanghon.R
 import com.example.hwanghon.board.BoardModel
 import com.example.hwanghon.board.BoardWriteActivity
@@ -25,12 +26,14 @@ import com.example.hwanghon.friend.ProfileModel
 import com.example.hwanghon.setting.SettingActivity
 import com.example.hwanghon.utils.FBAuth
 import com.example.hwanghon.utils.FBRef
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -113,6 +116,7 @@ class FriendFragment : Fragment() {
 //            nickname!!.text = profileDataList.nickname
 //
 //        }
+        getImagedata(uid)
 
 
 
@@ -146,6 +150,24 @@ class FriendFragment : Fragment() {
 
 
         return binding.root
+    }
+
+    private fun getImagedata(uid : String){
+
+        val storageReference = Firebase.storage.reference.child(uid + ".png")
+
+// ImageView in your Activity
+        val imageViewFromFB = binding.profileimage
+        storageReference.downloadUrl.addOnCompleteListener(OnCompleteListener { task ->
+            if(task.isSuccessful) {
+                Glide.with(this)
+                    .load(task.result)
+                    .into(imageViewFromFB)
+            } else {
+
+            }
+        })
+
     }
 
 

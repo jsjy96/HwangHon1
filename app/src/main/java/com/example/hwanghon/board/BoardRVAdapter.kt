@@ -18,6 +18,7 @@ import com.example.hwanghon.comment.CommentModel
 import com.example.hwanghon.databinding.ActivityBoardWriteBinding
 import com.example.hwanghon.friend.ProfileModel
 import com.example.hwanghon.utils.FBRef
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -84,25 +85,25 @@ class BoardRVAdapter(private val boardDataList : MutableList<BoardModel>, val co
             val image3layout = itemView.findViewById<FrameLayout>(R.id.image3layout)
 
 
-            storageRef1.downloadUrl.addOnCompleteListener({ task ->
+            storageRef1.downloadUrl.addOnCompleteListener(OnCompleteListener{ task ->
                 if(task.isSuccessful) {
                     Glide.with(context)
                         .load(task.result)
                         .into(image1)
                     image1.visibility=View.VISIBLE
-                    storageRef2.downloadUrl.addOnCompleteListener({ task ->
+                    storageRef2.downloadUrl.addOnCompleteListener(OnCompleteListener{ task ->
                         if(task.isSuccessful) {
                             Glide.with(context)
                                 .load(task.result)
                                 .into(image2)
                             image2.visibility=View.VISIBLE
-                            storageRef3.downloadUrl.addOnCompleteListener({ task ->
+                            storageRef3.downloadUrl.addOnCompleteListener(OnCompleteListener{ task ->
                                 if(task.isSuccessful) {
                                     Glide.with(context)
                                         .load(task.result)
                                         .into(image3)
                                     image3layout.visibility=View.VISIBLE
-                                    storageRef4.downloadUrl.addOnCompleteListener({ task ->
+                                    storageRef4.downloadUrl.addOnCompleteListener(OnCompleteListener{ task ->
                                         if(task.isSuccessful) {
                                             moretext.visibility=View.VISIBLE
                                         } else {

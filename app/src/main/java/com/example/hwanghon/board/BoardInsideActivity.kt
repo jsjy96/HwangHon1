@@ -1,15 +1,13 @@
 package com.example.hwanghon.board
 
+import android.content.Context
 import android.content.Intent
-import android.graphics.Point
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.LayoutInflater
-import android.view.View
-import android.view.WindowManager
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
@@ -34,6 +32,9 @@ class BoardInsideActivity : AppCompatActivity() {
     private lateinit var key: String
 
     private val commentDataList = mutableListOf<CommentModel>()
+
+//    lateinit var context : Context
+
 
     lateinit var rvAdapter : CommentRVAdapter
 
@@ -74,8 +75,11 @@ class BoardInsideActivity : AppCompatActivity() {
 
             getCommentData(key)
 
-        val uid = FBAuth.getUid()
-        getNickName(uid)
+//        val uid = BoardModel.uid()
+//
+//        getNickName(uid)
+//
+//        getProfileImagedata(uid)
 
     }
 
@@ -268,6 +272,10 @@ class BoardInsideActivity : AppCompatActivity() {
                 val uid = FBAuth.getUid()
                 val writerUid = dataModel?.uid
 
+                getNickName(writerUid.toString())
+                getProfileImagedata(writerUid.toString())
+
+
                 if(uid.equals(writerUid)){
                     binding.boardSettingIcon.isVisible = true
                 } else {
@@ -302,6 +310,24 @@ class BoardInsideActivity : AppCompatActivity() {
         }
 
         FBRef.profileRef.child(uid).addValueEventListener(postListener).toString()
+
+    }
+
+    private fun getProfileImagedata(uid : String){
+
+        val storageReference = Firebase.storage.reference.child(uid + ".png")
+
+// ImageView in your Activity
+        val imageViewFromFB = binding.imageView
+        storageReference.downloadUrl.addOnCompleteListener(OnCompleteListener { task ->
+            if(task.isSuccessful) {
+                Glide.with(this)
+                    .load(task.result)
+                    .into(imageViewFromFB)
+            } else {
+
+            }
+        })
 
     }
 }

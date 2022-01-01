@@ -18,6 +18,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.hwanghon.R
 import com.example.hwanghon.board.BoardEditActivity
 import com.example.hwanghon.board.BoardModel
@@ -25,6 +26,7 @@ import com.example.hwanghon.databinding.ActivityMyProfileBinding
 import com.example.hwanghon.utils.FBAuth
 import com.example.hwanghon.utils.FBRef
 import com.github.drjacky.imagepicker.ImagePicker
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -74,6 +76,8 @@ class MyProfileActivity : AppCompatActivity() {
         }
         val uid = FBAuth.getUid()
         FBRef.profileRef.child(uid).addValueEventListener(postListener)
+
+        getImagedata(uid)
 
 
         binding.editBtn.setOnClickListener {
@@ -151,10 +155,23 @@ class MyProfileActivity : AppCompatActivity() {
 
         }
         alertDialog.findViewById<Button>(R.id.basicBtn)?.setOnClickListener {
+
+            val storage = Firebase.storage
+            val storageRef = storage.reference
+            val uid = FBAuth.getUid()
+            val mountainsRef = storageRef.child(uid + ".png")
+
+            mountainsRef.delete().addOnSuccessListener {
+                // File deleted successfully
+            }.addOnFailureListener {
+                // Uh-oh, an error occurred!
+            }
+
             binding.basicimageArea.visibility= View.VISIBLE
             binding.profileimageArea.visibility= View.GONE
 
-            alertDialog.dismiss()
+
+           alertDialog.dismiss()
         }
     }
 
@@ -180,6 +197,24 @@ class MyProfileActivity : AppCompatActivity() {
             // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
             // ...
         }
+
+    }
+
+    private fun getImagedata(uid : String){
+
+        val storageReference = Firebase.storage.reference.child(uid + ".png")
+
+// ImageView in your Activity
+        val imageViewFromFB = binding.profileimageArea
+        storageReference.downloadUrl.addOnCompleteListener(OnCompleteListener { task ->
+            if(task.isSuccessful) {
+                Glide.with(this)
+                    .load(task.result)
+                    .into(imageViewFromFB)
+            } else {
+
+            }
+        })
 
     }
 
