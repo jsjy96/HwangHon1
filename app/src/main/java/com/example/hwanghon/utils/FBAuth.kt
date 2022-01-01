@@ -1,11 +1,13 @@
 package com.example.hwanghon.utils
 
 import android.util.Log
+import com.example.hwanghon.comment.CommentModel
 import com.example.hwanghon.friend.ProfileModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.storage.ktx.storageMetadata
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -35,11 +37,29 @@ class FBAuth {
 
         }
 
-        fun getNickName() : String {
+        fun getNickName(uid : String) : String {
 
+//            val postListener = object : ValueEventListener {
+//
+//                override fun onDataChange(dataSnapshot: DataSnapshot) {
+//
+//                        val item = dataSnapshot.getValue(ProfileModel::class.java)
+//                        val nickname = item?.nickname.toString()
+//                    Log.d("FBAuth", nickname)
+//
+//
+//                }
+//                override fun onCancelled(databaseError: DatabaseError) {
+//                }
+//            }
             val uid = getUid()
 
-            return FBRef.profileRef.child(uid).child(nickname).getKey().toString()
+//            FBRef.profileRef.child(uid).addValueEventListener(postListener).toString()
+            val aa = FBRef.profileRef.child(uid).getKey().toString()
+
+            Log.d("FBAuth", aa)
+            return aa
+
         }
 
 

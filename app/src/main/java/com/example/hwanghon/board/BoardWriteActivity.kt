@@ -52,7 +52,8 @@ class BoardWriteActivity : AppCompatActivity() {
 
             val title = binding.titleArea.text.toString()
             val content = binding.contentArea.text.toString()
-            val nickname = FBAuth.getNickName()
+            val uid = FBAuth.getUid()
+//            val nickname = getNickName(uid)
             val time = FBAuth.getTime()
 
             Log.d(TAG, title)
@@ -65,7 +66,7 @@ class BoardWriteActivity : AppCompatActivity() {
                 if(content.length > 0) {
                     FBRef.boardRef
                         .child(key)
-                        .setValue(BoardModel(title, content, nickname, time, key))
+                        .setValue(BoardModel(title, content, uid, time, key))
 
                     Toast.makeText(this, "게시글이 입력되었습니다", Toast.LENGTH_LONG).show()
 
@@ -178,6 +179,28 @@ class BoardWriteActivity : AppCompatActivity() {
 
         adapter.notifyDataSetChanged()
     }
+//    private fun getNickName(uid: String) {
+//
+//        val postListener = object : ValueEventListener {
+//
+//            override fun onDataChange(dataSnapshot: DataSnapshot) {
+//
+//                val item = dataSnapshot.getValue(ProfileModel::class.java)
+//                val nickname = item?.nickname.toString()
+//
+//                binding.
+//
+//
+//
+//
+//            }
+//            override fun onCancelled(databaseError: DatabaseError) {
+//            }
+//        }
+//
+//        FBRef.profileRef.child(uid).addValueEventListener(postListener).toString()
+//
+//    }
 
 
 }

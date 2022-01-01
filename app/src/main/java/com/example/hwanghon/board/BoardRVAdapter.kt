@@ -9,11 +9,18 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.view.menu.MenuView
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.hwanghon.R
 import com.example.hwanghon.comment.CommentModel
+import com.example.hwanghon.databinding.ActivityBoardWriteBinding
+import com.example.hwanghon.friend.ProfileModel
+import com.example.hwanghon.utils.FBRef
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 
@@ -55,13 +62,15 @@ class BoardRVAdapter(private val boardDataList : MutableList<BoardModel>, val co
             val title = itemView.findViewById<TextView>(R.id.titleArea)
             val time = itemView.findViewById<TextView>(R.id.timeArea)
             val content = itemView.findViewById<TextView>(R.id.contentArea)
-            val username = itemView.findViewById<TextView>(R.id.usernameArea)
+
             val key = boardDataList.key
+            val uid = boardDataList.uid
 
             title!!.text = boardDataList.title
             time!!.text = boardDataList.time
             content!!.text = boardDataList.content
-            username!!.text = boardDataList.nickname
+
+            getNickName(uid)
 
             val storageRef1 = Firebase.storage.reference.child(key + "0.png")
             val storageRef2 = Firebase.storage.reference.child(key + "1.png")
@@ -137,6 +146,31 @@ class BoardRVAdapter(private val boardDataList : MutableList<BoardModel>, val co
 
 
         }
+        private fun getNickName(uid: String) {
+
+            val postListener = object : ValueEventListener {
+
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                    val item = dataSnapshot.getValue(ProfileModel::class.java)
+//                    val nickname = item?.nickname.toString()
+
+
+                    val username = itemView.findViewById<TextView>(R.id.usernameArea)
+
+//                binding.usernameArea.text = nickname
+                    username!!.text = item?.nickname
+
+
+
+                }
+                override fun onCancelled(databaseError: DatabaseError) {
+                }
+            }
+
+            FBRef.profileRef.child(uid).addValueEventListener(postListener).toString()
+
+        }
 
     }
 
@@ -147,5 +181,7 @@ class BoardRVAdapter(private val boardDataList : MutableList<BoardModel>, val co
     fun setOnItemClickListener(listener : OnItemClickListener) {
         this.listener = listener
     }
+
+
 
 }

@@ -17,6 +17,7 @@ import com.example.hwanghon.R
 import com.example.hwanghon.comment.CommentModel
 import com.example.hwanghon.comment.CommentRVAdapter
 import com.example.hwanghon.databinding.ActivityBoardInsideBinding
+import com.example.hwanghon.friend.ProfileModel
 import com.example.hwanghon.utils.FBAuth
 import com.example.hwanghon.utils.FBRef
 import com.google.android.gms.tasks.OnCompleteListener
@@ -72,6 +73,9 @@ class BoardInsideActivity : AppCompatActivity() {
 
 
             getCommentData(key)
+
+        val uid = FBAuth.getUid()
+        getNickName(uid)
 
     }
 
@@ -260,12 +264,11 @@ class BoardInsideActivity : AppCompatActivity() {
                 binding.titleArea.text = dataModel?.title
                 binding.textArea.text = dataModel?.content
                 binding.timeArea.text = dataModel?.time
-                binding.usernameArea.text = dataModel?.nickname
 
-                val myNickname = FBAuth.getNickName()
+                val uid = FBAuth.getUid()
                 val writerUid = dataModel?.nickname
 
-                if(myNickname.equals(writerUid)){
+                if(uid.equals(writerUid)){
                     binding.boardSettingIcon.isVisible = true
                 } else {
                 }
@@ -277,6 +280,28 @@ class BoardInsideActivity : AppCompatActivity() {
             }
         }
         FBRef.boardRef.child(key).addValueEventListener(postListener)
+
+    }
+    private fun getNickName(uid: String) {
+
+        val postListener = object : ValueEventListener {
+
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                val item = dataSnapshot.getValue(ProfileModel::class.java)
+                val nickname = item?.nickname.toString()
+
+                binding.usernameArea.text = nickname
+
+
+
+
+            }
+            override fun onCancelled(databaseError: DatabaseError) {
+            }
+        }
+
+        FBRef.profileRef.child(uid).addValueEventListener(postListener).toString()
 
     }
 }
