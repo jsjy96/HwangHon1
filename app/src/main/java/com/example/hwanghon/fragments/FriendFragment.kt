@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.DataBindingUtil.setContentView
@@ -67,6 +68,7 @@ class FriendFragment : Fragment() {
             startActivity(intent)
         }
 
+
 //        uid = intent.getStringExtra("uid").toString()
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -74,8 +76,14 @@ class FriendFragment : Fragment() {
                 val profileModel = dataSnapshot.getValue(ProfileModel::class.java)
 
                 binding.usernameArea.text = profileModel?.nickname
-                binding.profilemessageArea!!.text = profileModel?.profilemessage
 
+                if(profileModel?.profilemessage.toString().length > 0 ) {
+                    binding.profilemessageArea!!.text = profileModel?.profilemessage
+                }
+                else {
+                    binding.profilemessageArea.visibility = View.GONE
+
+                }
 //                binding.usernameArea.setText(profileModel?.nickname)
 //                binding.profilemessageArea.setText(profileModel?.profilemessage)
 

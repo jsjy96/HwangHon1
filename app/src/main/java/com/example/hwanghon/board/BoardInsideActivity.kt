@@ -266,7 +266,7 @@ class BoardInsideActivity : AppCompatActivity() {
                 binding.timeArea.text = dataModel?.time
 
                 val uid = FBAuth.getUid()
-                val writerUid = dataModel?.nickname
+                val writerUid = dataModel?.uid
 
                 if(uid.equals(writerUid)){
                     binding.boardSettingIcon.isVisible = true

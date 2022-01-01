@@ -124,7 +124,7 @@ class MyboardFragment : Fragment() {
                     val item = dataModel.getValue(BoardModel::class.java)
 
                     val myUid = FBAuth.getUid()
-                    val writerUid = item?.nickname
+                    val writerUid = item?.uid
 
                     if(myUid.equals(writerUid)){
                     boardDataList.add(item!!)

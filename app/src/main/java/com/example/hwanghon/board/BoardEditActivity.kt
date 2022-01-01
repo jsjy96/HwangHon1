@@ -99,7 +99,7 @@ class BoardEditActivity : AppCompatActivity() {
 
                 binding.titleArea.setText(dataModel?.title)
                 binding.contentArea.setText(dataModel?.content)
-                writerUid = dataModel!!.nickname
+                writerUid = dataModel!!.uid
                 writetime = dataModel.time
 
             }
