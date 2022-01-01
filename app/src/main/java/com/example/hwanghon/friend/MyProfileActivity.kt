@@ -67,28 +67,25 @@ class MyProfileActivity : AppCompatActivity() {
         FBRef.profileRef.child(uid).addValueEventListener(postListener)
 
 
-//        binding.editBtn.setOnClickListener {
-//
-//            val profileMessage = binding.profilemessage.text.toString()
-//            val nickname = binding.contentArea.text.toString()
-//            val uid = FBAuth.getUid()
-//            val time = FBAuth.getTime()
-//
-//
-//            FBRef.profileRef
-//                .child(uid)
-//                .setValue(BoardModel(nickname, profileMessage))
-//
-//            Toast.makeText(this, "게시글 입력 완료", Toast.LENGTH_LONG).show()
-//
+        binding.editBtn.setOnClickListener {
+
+            val profileMessage = binding.profilemessage.text.toString()
+            val nickname = binding.usernameArea.text.toString()
+
+
+            FBRef.profileRef
+                .child(uid)
+                .setValue(ProfileModel(nickname, profileMessage))
+
+
 //            if(isImageUpload == true) {
 //                imageUpload(key)
 //            }
-//
-//            finish()
-//
-//
-//        }
+
+            finish()
+
+
+        }
     }
 
 //    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
