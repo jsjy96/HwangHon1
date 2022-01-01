@@ -33,7 +33,6 @@ class BoardInsideActivity : AppCompatActivity() {
 
     private val commentDataList = mutableListOf<CommentModel>()
 
-    val context : Context
 
 
     lateinit var rvAdapter : CommentRVAdapter
@@ -69,7 +68,7 @@ class BoardInsideActivity : AppCompatActivity() {
             insertComment(key)
         }
 
-        rvAdapter = CommentRVAdapter(commentDataList, context)
+        rvAdapter = CommentRVAdapter(commentDataList)
         binding.commentRV.adapter = rvAdapter
 
 

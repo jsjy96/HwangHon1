@@ -51,7 +51,7 @@
         android:maxLines="5"
         android:hint="내 소개글 (50자 제한)"
         android:gravity="center"
-        android:textColor="#818181"
+        android:textColor="@color/black"
         android:textSize="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -19,7 +19,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 
-class CommentRVAdapter(private val commentDataList: MutableList<CommentModel>, val context : Context) :
+class CommentRVAdapter(private val commentDataList: MutableList<CommentModel>) :
         RecyclerView.Adapter<CommentRVAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentRVAdapter.ViewHolder {
@@ -55,7 +55,7 @@ class CommentRVAdapter(private val commentDataList: MutableList<CommentModel>, v
             val imageViewFromFB : ImageView = itemView.findViewById(R.id.userimage)
             storageReference.downloadUrl.addOnCompleteListener(OnCompleteListener{ task ->
                 if(task.isSuccessful) {
-                    Glide.with(context)
+                    Glide.with(itemView)
                         .load(task.result)
                         .into(imageViewFromFB)
                 } else {
