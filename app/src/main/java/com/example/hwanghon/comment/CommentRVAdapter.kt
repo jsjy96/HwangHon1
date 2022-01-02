@@ -1,16 +1,25 @@
 package com.example.hwanghon.comment
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.view.menu.MenuView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.hwanghon.R
+import com.example.hwanghon.board.BoardModel
+import com.example.hwanghon.friend.FriendProfileActivity
+import com.example.hwanghon.friend.MyProfileActivity
 import com.example.hwanghon.friend.ProfileModel
+import com.example.hwanghon.utils.FBAuth
 import com.example.hwanghon.utils.FBRef
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.database.DataSnapshot
@@ -28,7 +37,8 @@ class CommentRVAdapter(private val commentDataList: MutableList<CommentModel>) :
     }
 
     override fun onBindViewHolder(holder: CommentRVAdapter.ViewHolder, position: Int) {
-        holder.bindItems(commentDataList[position])
+        holder.bindItems(holder, commentDataList[position])
+
 
     }
 
@@ -38,7 +48,7 @@ class CommentRVAdapter(private val commentDataList: MutableList<CommentModel>) :
 
     inner class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bindItems(commentDataList : CommentModel) {
+        fun bindItems(holder: CommentRVAdapter.ViewHolder, commentDataList : CommentModel) {
 
             val title = itemView.findViewById<TextView>(R.id.titleArea)
             val time = itemView.findViewById<TextView>(R.id.timeArea)
@@ -63,7 +73,27 @@ class CommentRVAdapter(private val commentDataList: MutableList<CommentModel>) :
                 }
             })
 
+            val authuid = FBAuth.getUid()
+
+            val commentProflie = itemView.findViewById<ConstraintLayout>(R.id.commentprofile)
+            commentProflie.setOnClickListener {
+                if(uid.equals(authuid)){
+            val intent = Intent(holder.itemView?.context, MyProfileActivity::class.java)
+            ContextCompat.startActivity(holder.itemView.context, intent, null)
+
+                } else {
+
+                    val intent = Intent(holder.itemView?.context, FriendProfileActivity::class.java)
+                    intent.putExtra("uid", uid)
+                    ContextCompat.startActivity(holder.itemView.context, intent, null)
+                }
+            }
+
+
         }
+
+
+
 
         private fun getNickName(uid: String) {
 
@@ -93,7 +123,19 @@ class CommentRVAdapter(private val commentDataList: MutableList<CommentModel>) :
 
 
 
+
     }
+//    private fun getMyProfile(uid: String){
+//
+//        val intent = Intent(context, MyProfileActivity::class.java)
+//        ContextCompat.startActivity(ViewHolder.itemView?.context, intent, null)
+//    }
+//    private fun getFriendProfile(uid: String){
+//        val holder = ViewHolder()
+//        val intent = Intent(holder.itemView?.context, FriendProfileActivity::class.java)
+//        intent.putExtra("uid", uid)
+//        ContextCompat.startActivity(holder.itemView?.context, intent, null)
+//    }
 
 
 }
