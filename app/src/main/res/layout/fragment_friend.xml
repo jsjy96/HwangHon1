@@ -48,7 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:background="#7AF6A3A3"
-                android:text="    내 소개"
+                android:text="    내 정보"
                 android:textSize="30dp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
