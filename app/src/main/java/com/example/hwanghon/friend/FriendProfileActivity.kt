@@ -63,15 +63,7 @@ class FriendProfileActivity : AppCompatActivity() {
         }
         FBRef.friendRef.child(myuid).child(uid).addValueEventListener(posttwo)
 
-//        FBRef.friendRef.getValue().addOnSuccessListener {
-//            binding.friendremoveBtn.visibility= View.VISIBLE
-//            binding.friendplusBtn.visibility= View.INVISIBLE
-//        }.addOnFailureListener{
-//            binding.friendplusBtn.visibility= View.VISIBLE
-//            binding.friendremoveBtn.visibility= View.INVISIBLE
-//            Toast.makeText(this, "없습니다", Toast.LENGTH_LONG).show()
-//        }
-//
+
         binding.friendplusBtn.setOnClickListener {
             FBRef.friendRef
                 .child(myuid)

@@ -16,11 +16,15 @@ import androidx.databinding.DataBindingUtil.setContentView
 import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.example.hwanghon.R
+import com.example.hwanghon.board.BoardInsideActivity
 import com.example.hwanghon.board.BoardModel
+import com.example.hwanghon.board.BoardRVAdapter
 import com.example.hwanghon.board.BoardWriteActivity
 import com.example.hwanghon.comment.CommentModel
 import com.example.hwanghon.databinding.FragmentChattingBinding
 import com.example.hwanghon.databinding.FragmentFriendBinding
+import com.example.hwanghon.friend.FriendModel
+import com.example.hwanghon.friend.FriendRVAdapter
 import com.example.hwanghon.friend.MyProfileActivity
 import com.example.hwanghon.friend.ProfileModel
 import com.example.hwanghon.setting.SettingActivity
@@ -50,6 +54,10 @@ class FriendFragment : Fragment() {
     private lateinit var binding : FragmentFriendBinding
     private lateinit var auth: FirebaseAuth
 
+    private val friendDataList = mutableListOf<FriendModel>()
+
+    lateinit var rvAdapter : FriendRVAdapter
+
 
     private val TAG = FriendFragment::class.java.simpleName
 
@@ -70,6 +78,11 @@ class FriendFragment : Fragment() {
             val intent = Intent(context, MyProfileActivity::class.java)
             startActivity(intent)
         }
+
+        rvAdapter = FriendRVAdapter(friendDataList)
+        binding.friendRV.adapter = rvAdapter
+
+
 
 
 //        uid = intent.getStringExtra("uid").toString()
@@ -117,6 +130,8 @@ class FriendFragment : Fragment() {
 //
 //        }
         getImagedata(uid)
+
+        getFBFriendData(uid)
 
 
 
@@ -168,6 +183,32 @@ class FriendFragment : Fragment() {
             }
         })
 
+    }
+
+    private fun getFBFriendData(uid:String){
+        val postListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                //중복돼서 나올 때 초기화
+                friendDataList.clear()
+
+                for (dataModel in dataSnapshot.children) {
+
+                    val item = dataModel.getValue(FriendModel::class.java)
+                    friendDataList.add(item!!)
+
+                }
+
+                rvAdapter.notifyDataSetChanged()
+
+
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Getting Post failed, log a message
+            }
+        }
+        FBRef.friendRef.child(uid).addValueEventListener(postListener)
     }
 
 
