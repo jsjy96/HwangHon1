@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContentProviderCompat.requireContext
@@ -12,9 +13,12 @@ import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.example.hwanghon.R
+import com.example.hwanghon.auth.LoginActivity
 import com.example.hwanghon.comment.CommentModel
 import com.example.hwanghon.comment.CommentRVAdapter
 import com.example.hwanghon.databinding.ActivityBoardInsideBinding
+import com.example.hwanghon.friend.FriendProfileActivity
+import com.example.hwanghon.friend.MyProfileActivity
 import com.example.hwanghon.friend.ProfileModel
 import com.example.hwanghon.utils.FBAuth
 import com.example.hwanghon.utils.FBRef
@@ -32,6 +36,8 @@ class BoardInsideActivity : AppCompatActivity() {
     private lateinit var key: String
 
     private val commentDataList = mutableListOf<CommentModel>()
+
+    private val boardDataList = mutableListOf<BoardModel>()
 
 
 
@@ -73,6 +79,38 @@ class BoardInsideActivity : AppCompatActivity() {
 
 
             getCommentData(key)
+
+        binding.writerprofile.setOnClickListener {
+
+            val postListener = object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                    val dataModel = dataSnapshot.getValue(BoardModel::class.java)
+
+                    val uid = FBAuth.getUid()
+                    val writerUid = dataModel?.uid
+
+                    if(uid.equals(writerUid)){
+
+                        getMyProfile(uid)
+
+                    } else {
+
+                        getFriendProfile(writerUid.toString())
+
+                    }
+
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+
+                }
+            }
+            FBRef.boardRef.child(key).addValueEventListener(postListener)
+
+
+        }
+
 
 //        val uid = BoardModel.uid()
 //
@@ -329,4 +367,19 @@ class BoardInsideActivity : AppCompatActivity() {
         })
 
     }
+    private fun getMyProfile(uid: String){
+
+        val intent = Intent(this, MyProfileActivity::class.java)
+        startActivity(intent)
+    }
+    private fun getFriendProfile(uid: String){
+        val intent = Intent(this, FriendProfileActivity::class.java)
+        intent.putExtra("uid", uid)
+        startActivity(intent)
+    }
+
+
+
 }
+
+
