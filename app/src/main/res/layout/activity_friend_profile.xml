@@ -48,6 +48,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:textSize="35dp"
+            android:textStyle="bold"
             android:layout_marginTop="450dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -1,13 +1,14 @@
 package com.example.hwanghon.friend
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.example.hwanghon.R
+import com.example.hwanghon.chatting.ChattingRoomActivity
 import com.example.hwanghon.databinding.ActivityFriendProfileBinding
 import com.example.hwanghon.utils.FBAuth
 import com.example.hwanghon.utils.FBRef
@@ -85,6 +86,14 @@ class FriendProfileActivity : AppCompatActivity() {
             Toast.makeText(this, "친구가 삭제 되었습니다", Toast.LENGTH_LONG).show()
             binding.friendremoveBtn.visibility= View.INVISIBLE
             binding.friendplusBtn.visibility= View.VISIBLE
+        }
+
+        binding.chattingBtn.setOnClickListener {
+            val intent = Intent(this, ChattingRoomActivity::class.java)
+            intent.putExtra("frienduid", uid)
+            intent.putExtra("myuid", myuid)
+            startActivity(intent)
+            finish()
         }
 
     }

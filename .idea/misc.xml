@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/drawable/background_radius.xml" value="0.38229166666666664" />
         <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/drawable/background_radius_maincolor.xml" value="0.38229166666666664" />
+        <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/drawable/background_radius_yellow.xml" value="0.22083333333333333" />
         <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/drawable/chatting.xml" value="0.38229166666666664" />
         <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/drawable/chattingmain.xml" value="0.38229166666666664" />
         <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/drawable/community.xml" value="0.38229166666666664" />
@@ -20,6 +21,8 @@
         <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/layout/activity_board_list_lvadaptor.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/layout/activity_board_model.xml" value="0.2046875" />
         <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/layout/activity_board_write.xml" value="0.264" />
+        <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/layout/activity_chat_room.xml" value="0.264" />
+        <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/layout/activity_chatting_room.xml" value="0.2046875" />
         <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/layout/activity_comment_lvadapter.xml" value="0.2046875" />
         <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/layout/activity_comment_model.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/layout/activity_comment_rvadapter.xml" value="0.2046875" />
@@ -35,8 +38,11 @@
         <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/layout/activity_splash2.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/layout/activity_splash_main.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/layout/board_dialog.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/layout/chat_left.xml" value="0.2046875" />
+        <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/layout/chat_right.xml" value="0.2046875" />
+        <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/layout/chatting_list_item.xml" value="0.2046875" />
         <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/layout/comment_list_item.xml" value="0.24355300859598855" />
-        <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/layout/fragment_chatting.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/layout/fragment_chatting.xml" value="0.2" />
         <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/layout/fragment_freeboard.xml" value="0.264" />
         <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/layout/fragment_friend.xml" value="0.264" />
         <entry key="..\:/Users/jsjy9/AndroidStudioProjects/HwangHon/app/src/main/res/layout/fragment_lecture.xml" value="0.36614583333333334" />

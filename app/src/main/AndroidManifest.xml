@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HwangHon">
-
+        <activity
+            android:name=".chatting.ChattingRoomActivity"
+            android:exported="true" />
         <activity
             android:name=".friend.FriendRVAdapter"
             android:exported="true" />

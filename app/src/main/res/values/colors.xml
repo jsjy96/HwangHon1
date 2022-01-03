@@ -2,6 +2,7 @@
 <resources>
     <color name="mainColor">#ef2058</color>
     <color name="mainpurple">#3BAE5DFE</color>
+    <color name="subpurple">#08EF2058</color>
     <color name="mainpink">#7AF6A3A3</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
