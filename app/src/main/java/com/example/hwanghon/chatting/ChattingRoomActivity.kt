@@ -33,14 +33,6 @@ class ChattingRoomActivity : AppCompatActivity() {
         val adapter = GroupAdapter<GroupieViewHolder>()
 
         adapter.add(ChatLeft())
-        adapter.add(ChatLeft())
-        adapter.add(ChatRight())
-        adapter.add(ChatLeft())
-        adapter.add(ChatRight())
-        adapter.add(ChatRight())
-        adapter.add(ChatLeft())
-        adapter.add(ChatLeft())
-        adapter.add(ChatRight())
         adapter.add(ChatRight())
 
         binding.chatRV.adapter = adapter

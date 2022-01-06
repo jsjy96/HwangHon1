@@ -11,7 +11,7 @@
         android:layout_height="70dp"
         android:layout_marginLeft="7dp"
         android:layout_marginTop="20dp"
-        android:src="@drawable/person3"
+        android:src="@drawable/img"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,7 +24,7 @@
         android:layout_marginTop="10dp"
         android:ellipsize="end"
         android:maxLines="1"
-        android:text="username"
+        android:text="관악구알파치노"
         android:textColor="@color/black"
         android:textSize="25sp"
         app:layout_constraintStart_toEndOf="@+id/imageView"
@@ -32,13 +32,14 @@
 
     <TextView
         android:id="@+id/commentArea"
-        android:layout_width="250dp"
+        android:layout_width="wrap_content"
+        android:maxWidth="250dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="87dp"
         android:layout_marginTop="5dp"
         android:background="@drawable/background_radius"
         android:padding="10dp"
-        android:text="dfnsjdfnskdjfnjkczxkjvndjkvnsssdjvdsfjnjfsnjkfnsdkjfnsdjkfnjksdn"
+        android:text="종이접기소녀님 이번 주 종이접기 모임도 참석하시죠?"
         android:textSize="30sp"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
-        android:text="time"
+        android:text="오후 7:07"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/imageView"

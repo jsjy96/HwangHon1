@@ -1,5 +1,6 @@
 package com.example.hwanghon.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,8 +9,10 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.example.hwanghon.R
+import com.example.hwanghon.board.MeetBoardInsideActivity
 import com.example.hwanghon.databinding.FragmentFreeboardBinding
 import com.example.hwanghon.databinding.FragmentMeetboardBinding
+import com.example.hwanghon.friend.MyProfileActivity
 import com.google.firebase.auth.FirebaseAuth
 
 // TODO: Rename parameter arguments, choose names that match
@@ -40,6 +43,11 @@ class MeetboardFragment : Fragment() {
     ): View? {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_meetboard, container, false)
+
+        binding.textArea.setOnClickListener {
+            val intent = Intent(context, MeetBoardInsideActivity::class.java)
+            startActivity(intent)
+        }
 
         binding.friendTap.setOnClickListener {
 
