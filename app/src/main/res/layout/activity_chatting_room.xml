@@ -44,7 +44,7 @@
             android:layout_alignParentBottom="true">
 
             <EditText
-                android:id="@+id/commentArea"
+                android:id="@+id/messageArea"
                 android:layout_width="320dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
@@ -52,7 +52,7 @@
                 android:textSize="30dp" />
 
             <ImageView
-                android:id="@+id/commentBtn"
+                android:id="@+id/sendBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/btnwrite2" />

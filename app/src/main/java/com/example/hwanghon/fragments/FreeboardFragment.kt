@@ -44,10 +44,12 @@ class FreeboardFragment : Fragment() {
     private val boardDataList = mutableListOf<BoardModel>()
 
     private val boardKeyList = mutableListOf<String>()
+
+    lateinit var rvAdapter : BoardRVAdapter
 //
 //    private lateinit var boardLVadapter : BoardListLVAdaptor
 
-    lateinit var rvAdapter : BoardRVAdapter
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

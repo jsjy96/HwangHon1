@@ -1,5 +1,6 @@
 package com.example.hwanghon.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,9 +9,18 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.example.hwanghon.R
+import com.example.hwanghon.board.BoardInsideActivity
+import com.example.hwanghon.board.BoardModel
+import com.example.hwanghon.board.BoardRVAdapter
+import com.example.hwanghon.chatting.ChatLeft
+import com.example.hwanghon.chatting.ChatListRVAdapter
+import com.example.hwanghon.chatting.ChatModel
+import com.example.hwanghon.chatting.ChatRight
 import com.example.hwanghon.databinding.FragmentChattingBinding
 import com.example.hwanghon.databinding.FragmentFriendBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.GroupieViewHolder
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,6 +36,10 @@ class ChattingFragment : Fragment() {
 
     private lateinit var binding : FragmentChattingBinding
     private lateinit var auth: FirebaseAuth
+
+    private val chatDataList = mutableListOf<ChatModel>()
+
+    lateinit var rvAdapter : ChatListRVAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,6 +70,10 @@ class ChattingFragment : Fragment() {
             it.findNavController().navigate(R.id.action_chattingFragment_to_lectureFragment)
         }
 
+        rvAdapter = ChatListRVAdapter(chatDataList)
+
+        binding.boardRV.adapter = rvAdapter
+
 
 
 //        binding.logoutBtn.setOnClickListener {
@@ -67,9 +85,11 @@ class ChattingFragment : Fragment() {
 //        }
 
 
+        //getFBChatData()
 
         return binding.root
     }
+
 
 
 

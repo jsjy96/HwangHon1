@@ -2,6 +2,7 @@ package com.example.hwanghon.chatting
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import com.example.hwanghon.R
 import com.example.hwanghon.databinding.ActivityChattingRoomBinding
@@ -36,6 +37,17 @@ class ChattingRoomActivity : AppCompatActivity() {
         adapter.add(ChatRight())
 
         binding.chatRV.adapter = adapter
+
+        binding.sendBtn.setOnClickListener {
+            val message = binding.messageArea.text.toString()
+            if(message.length > 0) {
+
+                FBRef.chatRef
+            }
+            else {
+                binding.sendBtn.visibility= View.INVISIBLE
+            }
+        }
     }
 
     private fun getNickName(uid: String) {

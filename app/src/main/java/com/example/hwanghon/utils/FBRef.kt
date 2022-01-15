@@ -17,6 +17,7 @@ class FBRef {
         val commentRef = database.getReference("comment")
         val profileRef = database.getReference("profile")
         val friendRef = database.getReference("friend")
+        val chatRef = database.getReference("chat")
     }
 
 }
