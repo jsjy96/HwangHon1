@@ -3,12 +3,14 @@ package com.example.hwanghon.fragments
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,6 +28,7 @@ import com.example.hwanghon.friend.FriendModel
 import com.example.hwanghon.friend.ProfileModel
 import com.example.hwanghon.utils.FBAuth.Companion.getNickName
 import com.example.hwanghon.utils.FBRef
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
@@ -94,16 +97,6 @@ class ChattingFragment : Fragment() {
 
 
 
-
-
-//        binding.logoutBtn.setOnClickListener {
-//            FBAuth.getAuth().signOut()
-//            val intent = Intent(context, IntroActivity::class.java)
-//            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-//            startActivity(intent)
-//
-//        }
-
         val recyclerView = binding.chatlistRV
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = RecyclerViewAdapter()
@@ -140,8 +133,9 @@ class ChattingFragment : Fragment() {
         }
         inner class CustomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             val imageView: ImageView = itemView.findViewById(R.id.profileimage)
-            var textView_title : TextView = itemView.findViewById(R.id.usernameArea)
+            var textView_name : TextView = itemView.findViewById(R.id.usernameArea)
             val textView_lastMessage : TextView = itemView.findViewById(R.id.lastmessageArea)
+            val textView_lastMessagetime : TextView = itemView.findViewById(R.id.lastmessageTime)
 
         }
 
@@ -158,29 +152,52 @@ class ChattingFragment : Fragment() {
                 override fun onCancelled(error: DatabaseError) {
                 }
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    val friend = snapshot.getValue<FriendModel>()
-                    val frienduid = friend?.frienduid
-                    val storageReference = Firebase.storage.reference.child(frienduid + ".png")
+//                    val friend = snapshot.getValue<FriendModel>()
+//                    val frienduid = friend?.frienduid
+                    val storageReference = Firebase.storage.reference.child(destinationUid + ".png")
 
-                    Glide.with(holder.itemView.context)
-                        .load(storageReference)
-                        .into(holder.imageView)
-
-                    getNickName(frienduid.toString())
-
+                    storageReference.downloadUrl.addOnCompleteListener(OnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            Glide.with(holder.itemView.context)
+                                .load(task.result)
+                                .into(holder.imageView)
+                        } else {}
+                    })
+//                    holder.textView_title.text=destinationUid
+//                    getNickName(destinationUid.toString())
                 }
             })
         //메세지 내림차순 정렬 후 마지막 메세지의 키값을 가져
             val commentMap = TreeMap<String, ChatModel.Comment>(reverseOrder())
             commentMap.putAll(chatModel[position].comments)
-//            val lastMessageKey = commentMap.keys.toTypedArray()[0]
-//            holder.textView_lastMessage.text = chatModel[position].comments[lastMessageKey]?.message
+            val lastMessageKey = commentMap.keys.toTypedArray()[0]
+            holder.textView_lastMessage.text = chatModel[position].comments[lastMessageKey]?.message
+            holder.textView_lastMessagetime.text = chatModel[position].comments[lastMessageKey]?.time
         //채팅창 선책 시 이동
             holder.itemView.setOnClickListener {
                 val intent = Intent(context, ChattingRoomActivity::class.java)
-                intent.putExtra("destinationUid", destinationUsers[position])
+                intent.putExtra("frienduid", destinationUsers[position])
                 context?.startActivity(intent)
             }
+            val postListener = object : ValueEventListener {
+
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                    val item = dataSnapshot.getValue(ProfileModel::class.java)
+//                    val nickname = item?.nickname.toString()
+
+//                binding.usernameArea.text = nickname
+                    holder.textView_name.text = item?.nickname
+
+
+
+                }
+                override fun onCancelled(databaseError: DatabaseError) {
+                }
+            }
+
+            FBRef.profileRef.child(destinationUsers[position]).addValueEventListener(postListener).toString()
+
 //            fun s(uid: String) {
 //
 //                val postListener = object : ValueEventListener {
@@ -207,5 +224,28 @@ class ChattingFragment : Fragment() {
 
 
     }
+    private fun getNickName(uid: String) {
+
+        val postListener = object : ValueEventListener {
+
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                val item = dataSnapshot.getValue(ProfileModel::class.java)
+//                    val nickname = item?.nickname.toString()
+                val username = view?.findViewById<TextView>(R.id.usernameArea)
+//                binding.usernameArea.text = nickname
+                username!!.text = item?.nickname
+
+
+
+            }
+            override fun onCancelled(databaseError: DatabaseError) {
+            }
+        }
+
+        FBRef.profileRef.child(uid).addValueEventListener(postListener).toString()
+
+    }
+
 
 }

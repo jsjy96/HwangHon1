@@ -1,6 +1,7 @@
 package com.example.hwanghon.chatting
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -12,6 +13,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,8 +24,10 @@ import com.example.hwanghon.R
 import com.example.hwanghon.databinding.ActivityChattingRoomBinding
 import com.example.hwanghon.fragments.ChattingFragment
 import com.example.hwanghon.friend.FriendModel
+import com.example.hwanghon.friend.FriendProfileActivity
 import com.example.hwanghon.friend.ProfileModel
 import com.example.hwanghon.utils.FBRef
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -30,6 +35,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import java.text.SimpleDateFormat
@@ -55,42 +61,53 @@ class ChattingRoomActivity : AppCompatActivity() {
 
         myuid = intent.getStringExtra("myuid").toString()
         frienduid = intent.getStringExtra("frienduid").toString()
-        val time = System.currentTimeMillis()
-        val dateFormat = SimpleDateFormat("MM월 dd일 hh:mm")
-        val curTime = dateFormat.format(Date(time)).toString()
 
-        destinationUid = intent.getStringExtra("destinationUid")
         uid = Firebase.auth.currentUser?.uid.toString()
         recyclerView = findViewById(R.id.chatRV)
+
 
         binding.sendBtn.setOnClickListener {
             val chatModel = ChatModel()
             chatModel.users.put(uid.toString(), true)
             chatModel.users.put(frienduid, true)
 
+            val time = System.currentTimeMillis()
+            val dateFormat = SimpleDateFormat("MM월 dd일 hh:mm")
+            val curTime = dateFormat.format(Date(time)).toString()
+
             val comment = ChatModel.Comment(uid, binding.messageArea.text.toString(), curTime)
-            if(chatRoomUid == null){
-                binding.sendBtn.isEnabled = false
-                fireDatabase.child("chat").push().setValue(chatModel).addOnSuccessListener {
-                //채팅방 생성
-                checkChatRoom()
-                //메세지 보내기
-                Handler().postDelayed({
-                    println(chatRoomUid)
-                    fireDatabase.child("chat").child(chatRoomUid.toString()).child("comments").push().setValue(comment)
-                    binding.messageArea.text = null }, 1000L)
-                    Log.d("chatUidNull dest", "$frienduid")
+            if(binding.messageArea.length()>0) {
+
+                if (chatRoomUid == null) {
+                    binding.sendBtn.isEnabled = false
+                    fireDatabase.child("chat").push().setValue(chatModel).addOnSuccessListener {
+                        //채팅방 생성
+                        checkChatRoom()
+                        //메세지 보내기
+                        Handler().postDelayed({
+                            println(chatRoomUid)
+                            fireDatabase.child("chat").child(chatRoomUid.toString())
+                                .child("comments").push().setValue(comment)
+                            binding.messageArea.text = null
+                        }, 500L)
+                        Log.d("chatUidNull dest", "$frienduid")
+                    }
+
+                } else {
+                    fireDatabase.child("chat").child(chatRoomUid.toString()).child("comments")
+                        .push().setValue(comment)
+                    binding.messageArea.text = null
+                    Log.d("chatUidNotNull dest", "$frienduid")
+
                 }
-            }else{
-                fireDatabase.child("chat").child(chatRoomUid.toString()).child("comments").push().setValue(comment)
-                binding.messageArea.text = null
-                Log.d("chatUidNotNull dest", "$frienduid")
             }
+            else{}
+
         }
         checkChatRoom()
 
         getNickName(frienduid)
-
+        RecyclerViewAdapter().notifyDataSetChanged()
 //        val adapter = GroupAdapter<GroupieViewHolder>()
 //
 //        adapter.add(ChatLeft())
@@ -115,9 +132,12 @@ class ChattingRoomActivity : AppCompatActivity() {
                             binding.sendBtn.isEnabled = true
                             recyclerView?.layoutManager = LinearLayoutManager(this@ChattingRoomActivity)
                             recyclerView?.adapter = RecyclerViewAdapter()
+
+                            RecyclerViewAdapter().notifyDataSetChanged()
                         }
                     }
                 }
+
             })
     }
     inner class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MessageViewHolder>() {
@@ -145,6 +165,7 @@ class ChattingRoomActivity : AppCompatActivity() {
                         comments.add(item!!)
                         println(comments)
                     }
+
                     notifyDataSetChanged()
                 //메세지를 보낼 시 화면을 맨 밑으로 내림
                 recyclerView?.scrollToPosition(comments.size - 1)
@@ -152,6 +173,7 @@ class ChattingRoomActivity : AppCompatActivity() {
             })
         }
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageViewHolder {
+
             val view : View = LayoutInflater.from(parent.context).inflate(R.layout.chat_left, parent, false)
 
             return MessageViewHolder(view)
@@ -162,21 +184,32 @@ class ChattingRoomActivity : AppCompatActivity() {
             holder.textView_message.textSize = 20F
             holder.textView_message.text = comments[position].message
             holder.textView_time.text = comments[position].time
+            val storageReference = Firebase.storage.reference.child(frienduid + ".png")
             if(comments[position].uid.equals(uid)){ // 본인 채팅
-//                holder.textView_message.setBackgroundResource(R.drawable.rightbubble)
-                holder.textView_name.visibility = View.INVISIBLE
+                holder.textView_message.setBackgroundResource(R.drawable.background_radius_yellow)
+                holder.textView_name.visibility = View.GONE
+                holder.imageView_profile.visibility = View.GONE
 //                holder.layout_destination.visibility = View.INVISIBLE
-//                holder.layout_main.gravity = Gravity.RIGHT
+                holder.layout.gravity = Gravity.RIGHT
             }else{ // 상대방 채팅
-//                Glide.with(holder.itemView.context)
-//                    .load(friend?.profileImageUrl)
-//                    .apply(RequestOptions().circleCrop())
-//                    .into(holder.imageView_profile)
-                holder.textView_name.text = frienduid
+                storageReference.downloadUrl.addOnCompleteListener(OnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Glide.with(holder.itemView.context)
+                            .load(task.result)
+                            .into(holder.imageView_profile)
+                    } else {}
+                })
+                holder.textView_name.text = binding.friendname.text
 //                holder.layout_destination.visibility = View.VISIBLE
                 holder.textView_name.visibility = View.VISIBLE
-//                holder.textView_message.setBackgroundResource(R.drawable.leftbubble)
-//                holder.layout_main.gravity = Gravity.LEFT
+                holder.imageView_profile.visibility = View.VISIBLE
+                holder.textView_message.setBackgroundResource(R.drawable.background_radius)
+                holder.layout.gravity = Gravity.LEFT
+                holder.imageView_profile.setOnClickListener {
+                    val intent = Intent(holder.itemView?.context, FriendProfileActivity::class.java)
+                    intent.putExtra("uid", frienduid)
+                    ContextCompat.startActivity(holder.itemView.context, intent, null)
+                }
             }
         }
         inner class MessageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -186,10 +219,13 @@ class ChattingRoomActivity : AppCompatActivity() {
 //            val layout_destination: LinearLayout = view.findViewById(R.id.messageItem_layout_destination)
 //            val layout_main: LinearLayout = view.findViewById(R.id.messageItem_linearlayout_main)
             val textView_time : TextView = view.findViewById(R.id.timeArea)
+            val layout : LinearLayout = view.findViewById(R.id.layout)
+
         }
         override fun getItemCount(): Int {
             return comments.size
         }
+
     }
 
     private fun getNickName(uid: String) {
@@ -211,4 +247,6 @@ class ChattingRoomActivity : AppCompatActivity() {
         FBRef.profileRef.child(uid).addValueEventListener(postListener).toString()
 
     }
+
+
 }

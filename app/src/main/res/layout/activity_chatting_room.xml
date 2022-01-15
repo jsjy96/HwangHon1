@@ -20,7 +20,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
-            android:text="장준성"
             android:textColor="@color/black"
             android:textSize="35dp"
             android:textStyle="bold"

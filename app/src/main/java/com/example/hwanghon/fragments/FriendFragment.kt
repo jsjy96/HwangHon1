@@ -198,9 +198,7 @@ class FriendFragment : Fragment() {
                     friendDataList.add(item!!)
 
                 }
-
                 rvAdapter.notifyDataSetChanged()
-
 
             }
 
